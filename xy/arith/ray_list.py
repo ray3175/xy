@@ -12,7 +12,8 @@ class RayList(list):
         return result
 
     def __pos__(self):
-        return self.__class__([[i, j] for i in self for j in self[self.index(i)+1:]])
+        _max = len(self)
+        return [[self[i], self[j]] for i in range(0, _max-1) for j in range(i+1, _max)]
 
     def __invert__(self):
         return self.__class__(sorted(self))
