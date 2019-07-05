@@ -2,7 +2,7 @@ import numpy
 
 
 class RayList(list):
-    def __mul__(self, other):
+    def __matmul__(self, other):
         if isinstance(other, int):
             result = self.__class__([i * other for i in self])
         elif isinstance(other, self.__class__):
