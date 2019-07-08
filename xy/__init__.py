@@ -1,5 +1,6 @@
 from .decorator import Singleton
-from .arith import RayList
+from .arith import RayList, RayDict
+
 
 __author__ = "ray"
 __author_email__ = "57464715@qq.com"

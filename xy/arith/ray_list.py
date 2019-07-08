@@ -1,7 +1,13 @@
+import json
 import numpy
 
 
 class RayList(list):
+    def __init__(self, seq=()):
+        if isinstance(seq, str):
+            seq = json.loads(seq)
+        super().__init__(seq)
+
     def __matmul__(self, other):
         if isinstance(other, int):
             result = self.__class__([i * other for i in self])
@@ -20,6 +26,3 @@ class RayList(list):
 
     def __neg__(self):
         return self[::-1]
-
-    def to_list(self):
-        return list(self)
