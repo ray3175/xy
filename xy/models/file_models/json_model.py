@@ -30,12 +30,12 @@ class JsonModel(FileModel):
                 _json.close()
 
     def save(self):
-        _return = None
+        __return = None
         if self.path:
             with open(self.get_path(), "w", encoding="utf-8") as _json:
                 json.dump(self.data, _json)
                 _json.close()
-            _return = True
-        return _return
+            __return = True
+        return __return
 
 
