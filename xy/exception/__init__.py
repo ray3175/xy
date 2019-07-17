@@ -1,8 +1,7 @@
 class XYException(Exception):
     level = 10
 
-    @property
-    def msg(self):
+    def __call__(self, *args, **kwargs):
         return str(self)
 
 

@@ -20,13 +20,9 @@ setup(
     license="BSD",
     author=author,
     author_email=author_email,
-    description="一些封装的库！",
+    description="一些自己封装的库！",
     packages=find_packages(),
     include_package_data=True,
     python_requires=">=3.7.*",
-    install_requires=[
-        "numpy",
-        "pandas",
-        "pandasql"
-    ]
+    install_requires=[]
 )
