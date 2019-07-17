@@ -26,7 +26,10 @@ class JsonModel(FileModel):
     def __init_data(self):
         if self.path:
             with open(self.path, "r", encoding="utf-8") as _json:
-                self.data = json.load(_json)
+                try:
+                    self.data = json.load(_json)
+                except json.decoder.JSONDecodeError:
+                    self.data = {}
                 _json.close()
 
     def save(self):
