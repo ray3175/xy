@@ -7,10 +7,6 @@ class JsonModel(FileModel):
         super().__init__(json_path)
         self.__init_data()
 
-    def __del__(self):
-        if self.data:
-            self.save()
-
     @property
     def path(self):
         return self.get_path()
