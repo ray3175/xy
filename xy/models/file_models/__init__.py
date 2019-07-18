@@ -1,7 +1,25 @@
 import os
 
 
-class FileModel:
+class DirModel:
+    __path = None
+
+    def __init__(self, dir_path):
+        self.__path = dir_path
+        self.__make_dir()
+
+    def set_path(self, dir_path):
+        self.__path = dir_path
+
+    def get_path(self):
+        return self.__path
+
+    def __make_dir(self):
+        if not os.path.exists(self.__path):
+            os.makedirs(self.__path)
+
+
+class FileModel(DirModel):
     __id = None
     __name = None
     __dir = None
@@ -11,7 +29,7 @@ class FileModel:
     def __init__(self, file_path):
         self.__path = file_path
         self.__dir, self.__name = os.path.split(self.__path)
-        self.__make_dir()
+        super().__init__(self.__dir)
         self.__make_file()
 
     @property
@@ -61,10 +79,6 @@ class FileModel:
     @data.deleter
     def data(self):
         self.__data = None
-
-    def __make_dir(self):
-        if not os.path.exists(self.__dir):
-            os.makedirs(self.__dir)
 
     def __make_file(self):
         if not os.path.exists(self.__path):
