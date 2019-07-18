@@ -87,6 +87,3 @@ class FileModel:
             self.__path = None
             __return = True
         return __return
-
-
-from .json_model import JsonModel
