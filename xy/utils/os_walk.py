@@ -19,28 +19,28 @@ class OSWalk:
         self.__data.update({self.__name: self.__recursive_with_return_list(None, self.__path, temp_data)})
 
     def __recursive_with_return_list(self, name, path, temp_data):
-        __return = list()
+        _return = list()
         if name:
             path = self.__join_path(path, name)
         for _dir in temp_data[path][0]:
             if self.__is_dir_regex(_dir):
-                __return.append({_dir: self.__recursive_with_return_list(_dir, path, temp_data)})
+                _return.append({_dir: self.__recursive_with_return_list(_dir, path, temp_data)})
         for file in temp_data[path][-1]:
             if self.__is_file_regex(file):
-                __return.append(file)
-        return __return
+                _return.append(file)
+        return _return
 
     def __is_dir_regex(self, _dir):
-        __return = True
+        _return = True
         if self.__re_dir:
-            __return = self.__re_dir.search(_dir)
-        return __return
+            _return = self.__re_dir.search(_dir)
+        return _return
 
     def __is_file_regex(self, file):
-        __return = True
+        _return = True
         if self.__re_file:
-            __return = self.__re_file.search(file)
-        return __return
+            _return = self.__re_file.search(file)
+        return _return
 
     def __join_path(self, path, name):
         return os.path.join(path, name)

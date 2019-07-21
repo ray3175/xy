@@ -5,12 +5,12 @@ from .ray_list import RayList
 class PlusList(RayList):
     def __matmul__(self, other):
         if isinstance(other, int):
-            result = self.__class__([i * other for i in self])
+            _return = self.__class__([i * other for i in self])
         elif isinstance(other, self.__class__):
-            result = self.__class__([[i, j] for i in self for j in other])
+            _return = self.__class__([[i, j] for i in self for j in other])
         else:
-            result = self.__class__(numpy.asarray(self) * numpy.asarray(other))
-        return result
+            _return = self.__class__(numpy.asarray(self) * numpy.asarray(other))
+        return _return
 
     def __pos__(self):
         _max = len(self)

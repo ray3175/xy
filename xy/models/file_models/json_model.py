@@ -29,12 +29,12 @@ class JsonModel(FileModel):
                 _json.close()
 
     def save(self):
-        __return = None
+        _return = None
         if self.path and self.data:
             with open(self.path, "w", encoding="utf-8") as _json:
                 json.dump(self.data, _json)
                 _json.close()
-            __return = True
-        return __return
+            _return = True
+        return _return
 
 

@@ -1,11 +1,14 @@
 import os
+import shutil
 
 
 class DirModel:
     __path = None
+    __dir = None
 
     def __init__(self, dir_path):
         self.__path = dir_path
+        self.__dir = os.path.dirname(self.__path)
         self.__make_dir()
 
     def set_path(self, dir_path):
@@ -18,19 +21,27 @@ class DirModel:
         if not os.path.exists(self.__path):
             os.makedirs(self.__path)
 
+    def rename(self, new_name):
+        _return = None
+        new_path = os.path.join(self.__dir, new_name)
+        if not os.path.exists(new_path):
+            os.rename(self.__path, new_path)
+            self.__path = new_path
+            _return = True
+        return _return
+
+    def remove(self):
+        shutil.rmtree(self.__path)
+
 
 class FileModel(DirModel):
     __id = None
-    __name = None
-    __dir = None
-    __path = None
-    __data = None
 
     def __init__(self, file_path):
         self.__path = file_path
         self.__dir, self.__name = os.path.split(self.__path)
         super().__init__(self.__dir)
-        self.__make_file()
+        self.__init_file()
 
     @property
     def id(self):
@@ -80,24 +91,29 @@ class FileModel(DirModel):
     def data(self):
         self.__data = None
 
-    def __make_file(self):
-        if not os.path.exists(self.__path):
+    def __init_file(self):
+        if os.path.exists(self.__path):
+            with open(self.__path, "r+") as file:
+                self.data = file.read()
+                file.close()
+        else:
             with open(self.__path, "w+") as file:
+                self.data = None
                 file.close()
 
     def rename(self, new_name):
-        __return = None
+        _return = None
         new_path = os.path.join(self.__dir, new_name)
         if not os.path.exists(new_path):
             os.rename(self.__path, new_path)
             self.__path = new_path
-            __return = True
-        return __return
+            _return = True
+        return _return
 
     def remove(self):
-        __return = None
+        _return = None
         if os.path.exists(self.__path):
             os.remove(self.__path)
             self.__path = None
-            __return = True
-        return __return
+            _return = True
+        return _return
