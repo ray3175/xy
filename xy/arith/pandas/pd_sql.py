@@ -2,7 +2,7 @@ import pandasql
 from .tables import Tables
 
 
-class SQL:
+class PdSQL:
     __tables = Tables()
     __sql = lambda sql, table=__tables: pandasql.sqldf(sql, table)
 
