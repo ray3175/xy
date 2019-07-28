@@ -1,5 +1,5 @@
 from ..decorator.singleton import Singleton
-from ..arith.ray_dict import RayDict
+from xy.arith.dict.ray_dict import RayDict
 
 
 @Singleton
