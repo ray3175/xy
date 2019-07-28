@@ -8,7 +8,7 @@ class IsNp:
         :param np: numpy.ndarray
         :return: bool
         """
-        _return = False
+        _return = None
         if isinstance(np, numpy.ndarray):
             _return = True
         return _return
@@ -19,7 +19,7 @@ class IsNp:
         :param np: numpy.ndarray
         :return: bool
         """
-        _return = False
+        _return = None
         if not isinstance(np, numpy.ndarray):
             _return = True
         return _return

@@ -8,7 +8,7 @@ class IsPd:
         :param pd: pandas.core.frame.DataFrame
         :return: bool
         """
-        _return = False
+        _return = None
         if isinstance(pd, pandas.DataFrame):
             _return = True
         return _return
@@ -19,7 +19,7 @@ class IsPd:
         :param pd: pandas.core.frame.DataFrame
         :return: bool
         """
-        _return = False
+        _return = None
         if not isinstance(pd, pandas.DataFrame):
             _return = True
         return _return
