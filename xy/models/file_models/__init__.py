@@ -93,11 +93,11 @@ class FileModel(DirModel):
 
     def __init_file(self):
         if os.path.exists(self.__path):
-            with open(self.__path, "r+") as file:
+            with open(self.__path, "r+", encoding="utf-8") as file:
                 self.data = file.read()
                 file.close()
         else:
-            with open(self.__path, "w+") as file:
+            with open(self.__path, "w+", encoding="utf-8") as file:
                 self.data = None
                 file.close()
 

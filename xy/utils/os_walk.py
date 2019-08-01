@@ -3,11 +3,8 @@ import re
 
 
 class OSWalk:
-    __name = ""
-    __path = ""
-    __data = dict()
-
     def __init__(self, path, dir_regex=None, file_regex=None):
+        self.__data = dict()
         self.__path = path
         self.__name = os.path.split(path)[-1]
         self.__re_dir = re.compile(dir_regex) if dir_regex else None
