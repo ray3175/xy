@@ -3,9 +3,6 @@ import qrcode
 
 class QRCode:
     def __init__(self, version=None, box_size=2, border=1):
-        """
-        :param params: 例，{"box_size": 2, "border": 1}
-        """
         self.__qrcode = qrcode.QRCode(version, box_size=box_size, border=border)
 
     def new(self, data, save_path, optimize=0):
