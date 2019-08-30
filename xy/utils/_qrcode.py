@@ -1,4 +1,4 @@
-import qrcode
+import qrcode       # pip install qrcode
 
 
 class QRCode:

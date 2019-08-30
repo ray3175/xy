@@ -1,4 +1,4 @@
-import numpy
+import numpy        # pip install numpy
 from .is_np import IsNp
 
 

@@ -1,4 +1,4 @@
-import pandasql
+import pandasql     # pip install pandasql
 from .tables import Tables
 
 

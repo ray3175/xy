@@ -1,6 +1,6 @@
 import base64
 import binascii
-import Crypto.Cipher.AES
+import Crypto.Cipher.AES        # pip install pycryptodome
 import Crypto.Random
 
 

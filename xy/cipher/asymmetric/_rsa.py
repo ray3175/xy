@@ -1,5 +1,5 @@
 import os
-import rsa
+import rsa      # pip install rsa
 
 
 class RSA:

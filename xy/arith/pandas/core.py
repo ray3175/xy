@@ -1,4 +1,4 @@
-import pandas
+import pandas       # pip install pandas
 from .is_pd import IsPd
 from ..numpy.core import Core as np_core
 

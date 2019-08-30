@@ -1,4 +1,7 @@
 class ProgressBar:
+    """
+    进度条小工具！
+    """
     def __init__(self, rate=20, read_symbol="*", unread_symbol="-"):
         self.__rate = rate
         self.__read_symbol = read_symbol
