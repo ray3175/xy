@@ -14,10 +14,9 @@ class TwoDimensionCipher(OneDimensionCipher):
     def encrypt(self, text):
         key = self.__key
         start = 0
-        stop = self.__cut
         _len = len(text)
         cipher_text = list()
-        while stop < _len:
+        while stop:=self.__cut < _len:
             code_list = [key^ord(i) for i in text[start: stop]]
             cipher_text.extend(code_list)
             key = sum(code_list)
@@ -30,10 +29,9 @@ class TwoDimensionCipher(OneDimensionCipher):
     def decrypt(self, cipher_text):
         key = self.__key
         start = 0
-        stop = self.__cut
         _len = len(cipher_text)
         text = list()
-        while stop < _len:
+        while stop:=self.__cut < _len:
             _code_list = [ord(i) for i in cipher_text[start: stop]]
             code_list = [key^i for i in _code_list]
             key = sum(_code_list)

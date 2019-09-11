@@ -62,8 +62,7 @@ class AES:
     def encrypt(self, text):
         cipher = self.__get_cipher()
         cipher_text = b"".join([cipher.encrypt(i) for i in self.__text_verify(text.encode("utf-8"))])
-        encode_func = self.__encode.get(self.__code_method)
-        if encode_func:
+        if encode_func:=self.__encode.get(self.__code_method):
             cipher_text = encode_func(cipher_text)
         return cipher_text.decode("utf-8").rstrip()
 
@@ -73,7 +72,8 @@ class AES:
     def decrypt(self, cipher_text):
         cipher = self.__get_cipher()
         cipher_text = cipher_text.encode("utf-8")
-        decode_func = self.__decode.get(self.__code_method)
-        if decode_func:
+        if decode_func:=self.__decode.get(self.__code_method):
             cipher_text = decode_func(cipher_text)
         return self.__unpad(cipher.decrypt(cipher_text).decode("utf-8"))
+
+
