@@ -70,6 +70,6 @@ class VerificationCode:
         self.__draw_in_point(interferen_pos_number)
         self.__draw_in_arc(interferen_arc)
         self.__draw_in_line(interferen_line)
-        return self.__code,  self.__get_image_info_with_memory(image_type)
+        return self.__code, self.__get_image_info_with_memory(image_type)
 
 
