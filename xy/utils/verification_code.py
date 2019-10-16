@@ -1,6 +1,6 @@
 import random
-from io import BytesIO
 from PIL import Image, ImageDraw, ImageFont     # pip install pillow
+from ..common._io import RayBytesIO
 
 
 class VerificationCode:
@@ -58,12 +58,7 @@ class VerificationCode:
             self.__draw.line([x1, y1, x2, y2], self.__rand_color())
 
     def __get_image_info_with_memory(self, _type):
-        memory = BytesIO()
-        self.__image.save(memory, _type)
-        _return = memory.getvalue()
-        if not memory.closed:
-            memory.close()
-        return _return
+        return RayBytesIO.pil_image_to_bytes_with_memory(self.__image, _type)
 
     def new(self, code_length=4, code_style=None, image_type="png", interferen_pos_number=20, interferen_arc=20, interferen_line=5):
         self.__code = ""
@@ -75,6 +70,6 @@ class VerificationCode:
         self.__draw_in_point(interferen_pos_number)
         self.__draw_in_arc(interferen_arc)
         self.__draw_in_line(interferen_line)
-        return self.__code, self.__get_image_info_with_memory(image_type)
+        return self.__code,  self.__get_image_info_with_memory(image_type)
 
 
