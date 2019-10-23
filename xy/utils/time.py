@@ -4,6 +4,14 @@ import datetime
 
 class Time:
     @classmethod
+    def time_stamp2time(cls, time_stamp):
+        return time.localtime(time_stamp)
+
+    @classmethod
+    def time2time_stamp(cls, _time):
+        return time.mktime(_time)
+
+    @classmethod
     def time2string(cls, _time, format="%Y-%m-%d"):
         return time.strftime(format, _time)
 
