@@ -21,7 +21,7 @@ class Logger:
                  log_name=time.strftime("%Y-%m-%d.log", time.localtime()),
                  log_path=os.path.join(os.path.dirname(os.path.abspath(__file__)), "log"),
                  use_console=True,
-                 use_timed_rotating=True, timed_rotating_params={}):
+                 use_timed_rotating=False, timed_rotating_params={}):
         """
         :param set_level: 日志级别["NOTSET"|"DEBUG"|"INFO"|"WARNING"|"ERROR"|"CRITICAL"]，默认为INFO
         :param name: 日志中打印的name，默认为运行程序的name
