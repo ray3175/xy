@@ -4,6 +4,10 @@ import datetime
 
 class Time:
     @classmethod
+    def get_local_time_with_string(cls, format="%Y-%m-%d"):
+        return cls.time2string(time.localtime(), format)
+
+    @classmethod
     def time_stamp2time(cls, time_stamp):
         return time.localtime(time_stamp)
 
@@ -26,5 +30,4 @@ class Time:
     @classmethod
     def string2datetime(cls, string, format="%Y-%m-%d"):
         return datetime.datetime.strptime(string, format)
-
 
