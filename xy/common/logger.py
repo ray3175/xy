@@ -52,8 +52,8 @@ class Logger:
     def _exec_type(self):
         return "DEBUG" if os.environ.get("IPYTHONENABLE") else "INFO"
 
-    def _timed_rotating_file_handler(self, path, wher="S", suffix="%Y-%m-%d(%H %M %S).log", extMatch=re.compile("^\d{4}-\d{2}-\d{2}\(\d{2}\s\d{2}\s\d{2}\)"), backupCount=30):
-        file_handler = logging.handlers.TimedRotatingFileHandler(path, when=wher, interval=1, backupCount=backupCount)
+    def _timed_rotating_file_handler(self, path, when="S", suffix="%Y-%m-%d(%H %M %S).log", extMatch=re.compile("^\d{4}-\d{2}-\d{2}\(\d{2}\s\d{2}\s\d{2}\)"), backupCount=30):
+        file_handler = logging.handlers.TimedRotatingFileHandler(path, when=when, interval=1, backupCount=backupCount)
         file_handler.suffix = suffix
         file_handler.extMatch = extMatch
         return file_handler
