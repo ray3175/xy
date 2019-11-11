@@ -3,7 +3,7 @@ import sys
 import re
 import time
 import logging
-import logging.handlers
+from logging.handlers import TimedRotatingFileHandler
 
 
 class Logger:
@@ -53,7 +53,7 @@ class Logger:
         return "DEBUG" if os.environ.get("IPYTHONENABLE") else "INFO"
 
     def _timed_rotating_file_handler(self, path, when="S", suffix="%Y-%m-%d(%H %M %S).log", extMatch=re.compile("^\d{4}-\d{2}-\d{2}\(\d{2}\s\d{2}\s\d{2}\)"), backupCount=30, encoding="utf-8"):
-        file_handler = logging.handlers.TimedRotatingFileHandler(path, when=when, interval=1, backupCount=backupCount, encoding=encoding)
+        file_handler = SelfTimedRotatingFileHandler(path, when=when, interval=1, backupCount=backupCount, encoding=encoding)
         file_handler.suffix = suffix
         file_handler.extMatch = extMatch
         return file_handler
@@ -82,3 +82,23 @@ class Logger:
     def debug(self, msg, *args, **kwargs):
         self.__logger.debug(msg, *args, **kwargs)
 
+
+class SelfTimedRotatingFileHandler(TimedRotatingFileHandler):
+    def __init__(self, path, when="S", interval=1, backupCount=30, encoding="utf-8"):
+        self.__encoding = encoding
+        super().__init__(path, when=when, interval=interval, backupCount=backupCount, encoding=encoding)
+
+    def rotate(self, source, dest):
+        if not callable(self.rotator):
+            if os.path.exists(source):
+                with open(source, "r", encoding=self.__encoding) as x:
+                    data = x.read()
+                    x.close()
+                with open(dest, "w", encoding=self.__encoding) as y:
+                    y.write(data)
+                    y.close()
+                with open(source, "w", encoding=self.__encoding) as x:
+                    x.write("")
+                    x.close()
+        else:
+            self.rotator(source, dest)
