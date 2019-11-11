@@ -20,7 +20,7 @@ class Logger:
                  name=os.path.split(os.path.splitext(sys.argv[0])[0])[-1],
                  log_name=time.strftime("%Y-%m-%d.log", time.localtime()),
                  log_path=os.path.join(os.path.dirname(os.path.abspath(__file__)), "log"),
-                 use_console=True,
+                 encoding="utf-8", use_console=True,
                  use_timed_rotating=False, timed_rotating_params={}):
         """
         :param set_level: 日志级别["NOTSET"|"DEBUG"|"INFO"|"WARNING"|"ERROR"|"CRITICAL"]，默认为INFO
@@ -40,9 +40,9 @@ class Logger:
         formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
         path = os.path.join(log_path, log_name)
         if use_timed_rotating:
-            handlers.append(self._timed_rotating_file_handler(path, **timed_rotating_params))
+            handlers.append(self._timed_rotating_file_handler(path, encoding=encoding, **timed_rotating_params))
         else:
-            handlers.append(logging.FileHandler(path, encoding="utf-8"))
+            handlers.append(logging.FileHandler(path, encoding=encoding))
         if use_console:
             handlers.append(logging.StreamHandler())
         for handler in handlers:
@@ -52,8 +52,8 @@ class Logger:
     def _exec_type(self):
         return "DEBUG" if os.environ.get("IPYTHONENABLE") else "INFO"
 
-    def _timed_rotating_file_handler(self, path, when="S", suffix="%Y-%m-%d(%H %M %S).log", extMatch=re.compile("^\d{4}-\d{2}-\d{2}\(\d{2}\s\d{2}\s\d{2}\)"), backupCount=30):
-        file_handler = logging.handlers.TimedRotatingFileHandler(path, when=when, interval=1, backupCount=backupCount)
+    def _timed_rotating_file_handler(self, path, when="S", suffix="%Y-%m-%d(%H %M %S).log", extMatch=re.compile("^\d{4}-\d{2}-\d{2}\(\d{2}\s\d{2}\s\d{2}\)"), backupCount=30, encoding="utf-8"):
+        file_handler = logging.handlers.TimedRotatingFileHandler(path, when=when, interval=1, backupCount=backupCount, encoding=encoding)
         file_handler.suffix = suffix
         file_handler.extMatch = extMatch
         return file_handler
