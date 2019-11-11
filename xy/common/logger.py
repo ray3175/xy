@@ -53,7 +53,7 @@ class Logger:
         return "DEBUG" if os.environ.get("IPYTHONENABLE") else "INFO"
 
     def _timed_rotating_file_handler(self, path, when="S", suffix="%Y-%m-%d(%H %M %S).log", extMatch=re.compile("^\d{4}-\d{2}-\d{2}\(\d{2}\s\d{2}\s\d{2}\)"), backupCount=30, encoding="utf-8"):
-        file_handler = SelfTimedRotatingFileHandler(path, when=when, interval=1, backupCount=backupCount, encoding=encoding)
+        file_handler = RayTimedRotatingFileHandler(path, when=when, interval=1, backupCount=backupCount, encoding=encoding)
         file_handler.suffix = suffix
         file_handler.extMatch = extMatch
         return file_handler
@@ -83,7 +83,7 @@ class Logger:
         self.__logger.debug(msg, *args, **kwargs)
 
 
-class SelfTimedRotatingFileHandler(TimedRotatingFileHandler):
+class RayTimedRotatingFileHandler(TimedRotatingFileHandler):
     def __init__(self, path, when="S", interval=1, backupCount=30, encoding="utf-8"):
         self.__encoding = encoding
         super().__init__(path, when=when, interval=interval, backupCount=backupCount, encoding=encoding)
