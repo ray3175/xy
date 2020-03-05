@@ -1,5 +1,5 @@
 import qrcode       # pip install qrcode
-from ..common._io import RayBytesIO
+from xy.common._io import RayBytesIO
 
 
 class QRCode:
