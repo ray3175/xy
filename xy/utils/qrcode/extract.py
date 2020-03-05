@@ -1,9 +1,9 @@
 from io import BytesIO
 from pyzbar import pyzbar       # pip install pyzbar
-from PIL import Image     # pip install pillow
+from PIL import Image       # pip install pillow
 
 
-class Extract:
+class QRCodeExtract:
     def __action(self, img):
         info = pyzbar.decode(img)
         return info[0].data.decode("utf-8")
