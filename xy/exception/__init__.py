@@ -13,13 +13,15 @@ class XYError(XYException):
     level = 9
 
 
-class XYWarning(XYException):
+class XYWarning(XYError):
     level = 6
 
 
-class XYInfo(XYException):
+class XYInfo(XYWarning):
     level = 3
 
 
-class XYDebug(XYException):
+class XYDebug(XYInfo):
     level = 0
+
+
