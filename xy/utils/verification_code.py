@@ -61,6 +61,15 @@ class VerificationCode:
         return RayBytesIO.pil_image_to_bytes_with_memory(self.__image, _type)
 
     def new(self, code_length=4, code_style=None, image_type="png", interferen_pos_number=20, interferen_arc=20, interferen_line=5):
+        """
+        :param code_length: 验证码长度（个数）
+        :param code_style: 字体，需要传入字体路径
+        :param image_type: 图片格式
+        :param interferen_pos_number: 干扰点
+        :param interferen_arc: 干扰弧
+        :param interferen_line: 干扰线
+        :return: (str, bytes)
+        """
         self.__code = ""
         if not isinstance(code_length, int) and code_length <= 0:
             code_length = 4

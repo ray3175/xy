@@ -3,7 +3,7 @@ import re
 
 
 class OSWalk:
-    def __init__(self, path, dir_regex=None, file_regex=None):
+    def __init__(self, path: str, dir_regex=None, file_regex=None):
         self.__data = dict()
         self.__path = path
         self.__name = os.path.split(path)[-1]
@@ -18,7 +18,7 @@ class OSWalk:
     def __recursive_with_return_list(self, name, path, temp_data):
         _return = list()
         if name:
-            path = self.__join_path(path, name)
+            path = os.path.join(path, name)
         for _dir in temp_data[path][0]:
             if self.__is_dir_regex(_dir):
                 _return.append({_dir: self.__recursive_with_return_list(_dir, path, temp_data)})
@@ -39,14 +39,11 @@ class OSWalk:
             _return = self.__re_file.search(file)
         return _return
 
-    def __join_path(self, path, name):
-        return os.path.join(path, name)
-
-    def get_name(self):
+    def get_name(self) -> str:
         return self.__name
 
-    def get_path(self):
+    def get_path(self) -> str:
         return self.__path
 
-    def get_data(self):
+    def get_data(self) -> dict:
         return self.__data
