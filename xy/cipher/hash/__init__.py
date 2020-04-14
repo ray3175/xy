@@ -13,7 +13,7 @@ class Hash:
         self.__salt = salt
         self.__iterations = iterations
 
-    def encrypt(self, text):
+    def encrypt(self, text: str) -> str:
         _result = None
         text = text.encode("utf-8")
         if self.__salt is None:

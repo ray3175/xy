@@ -1,5 +1,5 @@
 class OneDimensionCipher:
-    def __init__(self, key, iv=None):
+    def __init__(self, key: str, iv: str = None):
         self.__key = self.__str2int_with_ord_by_sum(key)
         self.__iv = iv
         if self.__iv:
@@ -14,8 +14,8 @@ class OneDimensionCipher:
     def get_iv(self):
         return self.__iv
 
-    def encrypt(self, text):
+    def encrypt(self, text: str) -> str:
         return "".join([chr(self.__key^ord(i)) for i in text])
 
-    def decrypt(self, cipher_text):
+    def decrypt(self, cipher_text: str) -> str:
         return self.encrypt(cipher_text)

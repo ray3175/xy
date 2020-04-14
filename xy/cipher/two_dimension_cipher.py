@@ -2,7 +2,7 @@ from .one_dimension_cipher import OneDimensionCipher
 
 
 class TwoDimensionCipher(OneDimensionCipher):
-    def __init__(self, key, iv=None, cut=3):
+    def __init__(self, key: str, iv: str = None, cut: int = 3):
         self.__cut = 2 ** cut
         super().__init__(key, iv)
         self.__key = self.get_key()
@@ -11,7 +11,7 @@ class TwoDimensionCipher(OneDimensionCipher):
     def get_cut(self):
         return self.__cut
 
-    def encrypt(self, text):
+    def encrypt(self, text: str) -> str:
         key = self.__key
         start = 0
         _len = len(text)
@@ -26,7 +26,7 @@ class TwoDimensionCipher(OneDimensionCipher):
             cipher_text.extend(code_list)
         return "".join([chr(i) for i in cipher_text])
 
-    def decrypt(self, cipher_text):
+    def decrypt(self, cipher_text: str) -> str:
         key = self.__key
         start = 0
         _len = len(cipher_text)

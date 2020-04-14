@@ -15,9 +15,19 @@ class RSA:
         with open(file_path, data_type) as x:
             x.write(data)
             x.close()
+        return True
 
     @classmethod
     def newkeys(cls, nbits=1024, private_key_path=None, public_key_path=None, private_is_der=False, public_is_der=False):
+        """
+        新建公钥私钥。
+        :param nbits: 位数
+        :param private_key_path: 私钥路径
+        :param public_key_path: 公钥路径
+        :param private_is_der: 私钥是否为der格式
+        :param public_is_der: 公钥是否为der格式
+        :return:
+        """
         pubilc_key, private_key = rsa.newkeys(nbits)
         if not private_key_path:
             private_key_path = os.path.join(os.getcwd(), "private_key.pem" if not private_is_der else "private_key.der")
@@ -26,6 +36,7 @@ class RSA:
         private_key, pubilc_key = private_key.save_pkcs1("PEM" if not private_is_der else "DER"), pubilc_key.save_pkcs1("PEM" if not public_is_der else "DER")
         cls.__write_in_file(private_key_path, private_key)
         cls.__write_in_file(public_key_path, pubilc_key)
+        return True
 
     @classmethod
     def __load_key(cls, key_path, key_type="private", _type="PEM"):

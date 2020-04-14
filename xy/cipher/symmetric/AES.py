@@ -22,7 +22,7 @@ class AES:
         "hex": binascii.a2b_hex
     }
 
-    def __init__(self, key=None, iv=None, cipher_method=1, pad_method="default", code_method=None):
+    def __init__(self, key=None, iv=None, cipher_method=1, pad_method="default", code_method="base64"):
         """
         :param key: 密钥，长度16位。
         :param iv: 向量，长度与密钥一致。
