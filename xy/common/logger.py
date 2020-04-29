@@ -85,20 +85,7 @@ class Logger:
 
 class RayTimedRotatingFileHandler(TimedRotatingFileHandler):
     def __init__(self, path, when="S", interval=1, backupCount=30, encoding="utf-8"):
-        self.__encoding = encoding
-        super().__init__(path, when=when, interval=interval, backupCount=backupCount, encoding=encoding)
+        super().__init__(path, when, interval, backupCount, encoding)
 
-    def rotate(self, source, dest):
-        if not callable(self.rotator):
-            if os.path.exists(source):
-                with open(source, "r", encoding=self.__encoding) as x:
-                    data = x.read()
-                    x.close()
-                with open(dest, "w", encoding=self.__encoding) as y:
-                    y.write(data)
-                    y.close()
-                with open(source, "w", encoding=self.__encoding) as x:
-                    x.write("")
-                    x.close()
-        else:
-            self.rotator(source, dest)
+
+
