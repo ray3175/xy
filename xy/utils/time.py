@@ -3,31 +3,46 @@ import datetime
 
 
 class Time:
-    @classmethod
-    def get_local_time_with_string(cls, format="%Y-%m-%d") -> str:
-        return cls.time2string(time.localtime(), format)
+    def __init__(self, timer=time.time(), format="%Y-%m-%d %H:%M:%S", unit="days"):
+        """
+        :param unit: days | seconds | microseconds | milliseconds | minutes | hours | weeks | fold
+        """
+        self.__format = format
+        self.__unit = unit
+        if isinstance(timer, (int, float)):
+            self.__time = time.localtime(timer)
+        elif isinstance(timer, str):
+            self.__time = time.strptime(timer, format)
+        elif isinstance(timer, datetime.datetime):
+            self.__time = timer.utctimetuple()
+        else:
+            self.__time = timer
 
-    @classmethod
-    def time_stamp2time(cls, time_stamp: float) -> time.struct_time:
-        return time.localtime(time_stamp)
+    def __str__(self):
+        return self.to_string()
 
-    @classmethod
-    def time2time_stamp(cls, _time: time.struct_time) -> float:
-        return time.mktime(_time)
+    def __add__(self, other: float):
+        return self.__class__(datetime.datetime.fromtimestamp(self.to_time_stamp()) + datetime.timedelta(**{self.__unit: other}), self.__format, self.__unit)
 
-    @classmethod
-    def time2string(cls, _time: time.struct_time, format="%Y-%m-%d") -> str:
-        return time.strftime(format, _time)
+    def __sub__(self, other: float):
+        return self.__class__(datetime.datetime.fromtimestamp(self.to_time_stamp()) - datetime.timedelta(**{self.__unit: other}), self.__format, self.__unit)
 
-    @classmethod
-    def string2time(cls, string, format="%Y-%m-%d") -> time.struct_time:
-        return time.strptime(string, format)
+    def set_format(self, format="%Y-%m-%d %H:%M:%S"):
+        self.__format = format
 
-    @classmethod
-    def datetime2string(cls, _datetime: datetime.datetime, format="%Y-%m-%d") -> str:
-        return _datetime.strftime(format)
+    def set_unit(self, unit="days"):
+        self.__unit = unit
 
-    @classmethod
-    def string2datetime(cls, string, format="%Y-%m-%d") -> datetime.datetime:
-        return datetime.datetime.strptime(string, format)
+    def to_string(self, format=None) -> str:
+        if not format:
+            format = self.__format
+        return time.strftime(format, self.__time)
+
+    def to_time_stamp(self) -> float:
+        return time.mktime(self.__time)
+
+    def to_datetime(self, format=None) -> datetime.datetime:
+        if not format:
+            format = self.__format
+        return datetime.datetime.strptime(self.to_string(), format)
 
