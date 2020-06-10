@@ -15,6 +15,8 @@ class Time:
             self.__time = time.strptime(timer, format)
         elif isinstance(timer, datetime.datetime):
             self.__time = timer.utctimetuple()
+        elif isinstance(timer, datetime.date):
+            self.__time = timer.timetuple()
         else:
             self.__time = timer
 
