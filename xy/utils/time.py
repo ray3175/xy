@@ -35,6 +35,9 @@ class Time:
     def set_unit(self, unit="days"):
         self.__unit = unit
 
+    def to_time(self) -> time.struct_time:
+        return self.__time
+
     def to_string(self, format=None) -> str:
         if not format:
             format = self.__format
