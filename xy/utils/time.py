@@ -3,7 +3,7 @@ import datetime
 
 
 class Time:
-    def __init__(self, timer=time.time(), format="%Y-%m-%d %H:%M:%S", unit="days"):
+    def __init__(self, timer=None, format="%Y-%m-%d %H:%M:%S", unit="days"):
         """
         :param unit: days | seconds | microseconds | milliseconds | minutes | hours | weeks | fold
         """
@@ -17,8 +17,10 @@ class Time:
             self.__time = timer.utctimetuple()
         elif isinstance(timer, datetime.date):
             self.__time = timer.timetuple()
-        else:
+        elif isinstance(timer, time.struct_time):
             self.__time = timer
+        else:
+            self.__time = time.localtime()
 
     def __str__(self):
         return self.to_string()
