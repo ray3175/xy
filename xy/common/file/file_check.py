@@ -1,4 +1,4 @@
-import chardet
+import chardet      # pip install chardet
 
 
 class FileCheck:
