@@ -1,4 +1,6 @@
 import yaml     # pip install pyyaml
+from ...stdlib_overwrite.list import List
+from ...stdlib_overwrite.dict import Dict
 from . import FileModel
 
 
@@ -21,10 +23,14 @@ class YamlModel(FileModel):
 
     def __init_data(self):
         try:
-            self.data = yaml.load(self.data, Loader=yaml.FullLoader)
+            self.data = Dict(_dict) if (_dict:=yaml.load(self.data, Loader=yaml.FullLoader)) else _dict
         except yaml.composer.ComposerError:
-            self.data = yaml.load_all(self.data, Loader=yaml.FullLoader)
+            self.data = List([Dict(_dict) for _dict in yaml.load_all(self.data, Loader=yaml.FullLoader) if _dict])
 
     def get_data(self):
         return self.data
+
+
+
+
 
