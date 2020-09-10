@@ -77,13 +77,14 @@ class Directory(SystemSetting):
 
     def __recursive_with_return_list(self, path, temp_data):
         _return = List()
-        for _dir in temp_data[path][0]:
-            if self.__is_valid_dir(_dir):
-                dir_path = os.path.join(path, _dir)
-                _return.append(self._Directory(_dir, dir_path, self.__recursive_with_return_list(dir_path, temp_data)))
-        for file in temp_data[path][-1]:
-            if self.__is_valid_file(file):
-                _return.append(self._File(file, os.path.join(path, file)))
+        if temp_data.get(path):
+            for _dir in temp_data[path][0]:
+                if self.__is_valid_dir(_dir):
+                    dir_path = os.path.join(path, _dir)
+                    _return.append(self._Directory(_dir, dir_path, self.__recursive_with_return_list(dir_path, temp_data)))
+            for file in temp_data[path][-1]:
+                if self.__is_valid_file(file):
+                    _return.append(self._File(file, os.path.join(path, file)))
         return _return
 
     def __is_valid_dir(self, _dir):

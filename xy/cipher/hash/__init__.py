@@ -14,10 +14,7 @@ class Hash:
         self.__iterations = iterations
 
     def encrypt(self, text: str) -> str:
-        _result = None
-        text = text.encode("utf-8")
-        if self.__salt is None:
-            _result = getattr(hashlib, self.__type)(text).hexdigest()
-        else:
-            _result = binascii.hexlify(hashlib.pbkdf2_hmac(self.__type, text, self.__salt.encode("utf-8"), self.__iterations)).decode("utf-8")
-        return _result
+        return self.encrypt_bytes(text.encode("utf-8"))
+
+    def encrypt_bytes(self, _bytes: bytes) -> str:
+        return binascii.hexlify(hashlib.pbkdf2_hmac(self.__type, _bytes, self.__salt.encode("utf-8"), self.__iterations)).decode("utf-8") if self.__salt else getattr(hashlib, self.__type)(_bytes).hexdigest()
