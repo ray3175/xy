@@ -20,7 +20,7 @@ setup(
     license="BSD",
     author=author,
     author_email=author_email,
-    description="一些自己封装的库！",
+    description="个人封装的一些类库！",
     packages=find_packages(),
     include_package_data=True,
     python_requires=">=3.8.*",

@@ -17,16 +17,15 @@ class DirModel:
         self.__name = os.path.split(self.__path)[-1]
         self.__make_dir()
         directory = Directory(self.__path, dir_regex, file_regex, exclude_dir_regex, exclude_file_regex)
-        self.__name, self.__data = directory.get_name(), self.__generate_data(self.__path, directory.get_data())
+        self.__name, self.__data = directory.name, self.__generate_data(directory.get_data())
 
-    def __generate_data(self, path, directory_data):
+    def __generate_data(self, directory_data):
         model_data = Dict()
         for obj in directory_data:
-            if isinstance(obj, dict):
-                for key, value in obj.items():
-                    model_data.update({key: self.__generate_data(os.path.join(path, key), value)})
+            if isinstance(obj, Directory._Directory):
+                model_data.update({obj.name: self.__generate_data(obj.value)})
             else:
-                model_data.update({obj: os.path.join(path, obj)})
+                model_data.update({obj.name: obj.path})
         return model_data
 
     @property
@@ -71,7 +70,7 @@ class DirModel:
 
     def rename(self, new_name):
         _return = None
-        new_path = os.path.join(self.__dir, new_name)
+        new_path = os.path.join(os.path.dirname(self.__path), new_name)
         if not os.path.exists(new_path):
             os.rename(self.__path, new_path)
             self.__path = new_path
