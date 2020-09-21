@@ -1,5 +1,7 @@
 import pytest
 import os
+import shutil
+import tempfile
 import numpy
 import pandas
 from xy.arith.pandas.core import Core
@@ -43,12 +45,13 @@ class Test_Core:
         assert self.core.pd2dicts(self.__pd) == self.__dicts
 
     def test_pd2excel_excel2pd(self):
-        path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "file-test_core-Test_ArrayErgodic-test_pd2excel.xlsx")
-        assert self.core.pd2excel(self.__pd, path) == True
-        pd = self.core.excel2pd(path)
+        path = tempfile.mkdtemp()
+        file = os.path.join(path, "file-test_core-Test_ArrayErgodic-test_pd2excel.xlsx")
+        assert self.core.pd2excel(self.__pd, file) == True
+        pd = self.core.excel2pd(file)
         assert self.core.get_pd_columns(pd)[1:] == self.__columns
         assert [value[1:] for value in self.core.get_pd_values(pd)] == self.__values_transpose
-        os.remove(path)
+        shutil.rmtree(path)
 
 
 if __name__ == "__main__":

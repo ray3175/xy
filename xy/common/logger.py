@@ -7,7 +7,7 @@ from logging.handlers import TimedRotatingFileHandler
 
 
 class Logger:
-    __level_dict = {
+    LEVEL_DICT = {
         "NOTSET": logging.NOTSET,
         "DEBUG": logging.DEBUG,
         "INFO": logging.INFO,
@@ -31,9 +31,10 @@ class Logger:
         :param use_timed_rotating: 是否基于时间输出日志，默认为False
         """
         if set_level is None:
-            set_level = self._exec_type()       # 设置set_level为None，自动获取当前运行模式
+            level_key = os.environ.get("xy")
+            set_level = self.LEVEL_DICT.get(level_key, logging.INFO)
         self.__logger = logging.getLogger(name)
-        self.__logger.setLevel(self.__level_dict[set_level] if set_level in self.__level_dict else set_level)
+        self.__logger.setLevel(self.LEVEL_DICT[set_level] if set_level in self.LEVEL_DICT else set_level)
         if not os.path.exists(log_path):        # 创建日志目录
             os.makedirs(log_path)
         handlers = list()
@@ -49,43 +50,18 @@ class Logger:
             handler.setFormatter(formatter)
             self.__logger.addHandler(handler)
 
-    def _exec_type(self):
-        return "DEBUG" if os.environ.get("IPYTHONENABLE") else "INFO"
+    def __getattr__(self, item):
+        return getattr(self.__logger, item)
 
-    def _timed_rotating_file_handler(self, path, when="S", suffix="%Y-%m-%d(%H %M %S).log", extMatch=re.compile("^\d{4}-\d{2}-\d{2}\(\d{2}\s\d{2}\s\d{2}\)"), backupCount=30, encoding="utf-8"):
+    def _timed_rotating_file_handler(self, path, when="S", suffix="%Y-%m-%d(%H %M %S).log", extMatch=re.compile(r"^\d{4}-\d{2}-\d{2}\(\d{2}\s\d{2}\s\d{2}\)"), backupCount=30, encoding="utf-8"):
         file_handler = RayTimedRotatingFileHandler(path, when=when, interval=1, backupCount=backupCount, encoding=encoding)
         file_handler.suffix = suffix
         file_handler.extMatch = extMatch
         return file_handler
 
-    def log(self, level, msg, *args, **kwargs):
-        self.__logger.log(level, msg, *args, **kwargs)
-
-    def critical(self, msg, *args, **kwargs):
-        self.__logger.critical(msg, *args, **kwargs)
-
-    def exception(self, msg, *args, exc_info=True, **kwargs):
-        self.__logger.exception(msg, *args, exc_info=exc_info, **kwargs)
-
-    def error(self, msg, *args, **kwargs):
-        self.__logger.error(msg, *args, **kwargs)
-
-    def warn(self, msg, *args, **kwargs):
-        self.warning(msg, *args, **kwargs)
-
-    def warning(self, msg, *args, **kwargs):
-        self.__logger.warning(msg, *args, **kwargs)
-
-    def info(self, msg, *args, **kwargs):
-        self.__logger.info(msg, *args, **kwargs)
-
-    def debug(self, msg, *args, **kwargs):
-        self.__logger.debug(msg, *args, **kwargs)
-
 
 class RayTimedRotatingFileHandler(TimedRotatingFileHandler):
     def __init__(self, path, when="S", interval=1, backupCount=30, encoding="utf-8"):
         super().__init__(path, when, interval, backupCount, encoding)
-
 
 
