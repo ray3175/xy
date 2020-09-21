@@ -32,5 +32,5 @@ class IsNp:
         """
         _return = None
         if cls.is_np(np):
-            _return = bool(np.size)
+            _return = not bool(np.size)
         return _return

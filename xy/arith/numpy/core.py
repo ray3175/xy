@@ -25,12 +25,12 @@ class Core:
         return _return
 
     @classmethod
-    def np2string(cls, np):
+    def np2bytes(cls, np):
         """
         :param np: numpy.ndarray
-        :return: str
+        :return: bytes
         """
-        _return = ""
+        _return = b""
         if IsNp.is_np(np):
-            _return = np.tostring()
+            _return = np.tobytes()
         return _return

@@ -92,4 +92,13 @@ class Core:
                 _return = False
         return _return
 
+    @classmethod
+    def excel2pd(cls, path, sheet_name="Sheet1"):
+        """
+        :param path: excel文件路径
+        :param sheet_name: Sheet名称。
+        :return: pandas.core.frame.DataFrame
+        """
+        return pandas.read_excel(path, sheet_name)
+
 
