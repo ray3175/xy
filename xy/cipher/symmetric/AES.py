@@ -22,7 +22,7 @@ class AES:
         "hex": binascii.a2b_hex
     }
 
-    def __init__(self, key=None, iv=None, cipher_method=1, pad_method="default", code_method="base64"):
+    def __init__(self, key="abcdefgh12345678", iv=None, cipher_method=1, pad_method="default", code_method="base64"):
         """
         :param key: 密钥，长度16位。
         :param iv: 向量，长度与密钥一致。
@@ -30,8 +30,8 @@ class AES:
         :param pad_method: 填充方式，["default"|"PKCS5Padding"]。
         :param code_method: 编码方式，["base64"|"hex"]。
         """
-        self.__key = key if key else "abcdefgh12345678"
-        self.__iv = iv if iv else Crypto.Random.new().read(Crypto.Cipher.AES.block_size)
+        self.__key = key
+        self.__iv = iv.encode("utf-8") if iv else Crypto.Random.new().read(Crypto.Cipher.AES.block_size)
         if isinstance(cipher_method, str):
             cipher_method = getattr(Crypto.Cipher.AES, cipher_method)
         self.__cipher_method = cipher_method
@@ -42,7 +42,7 @@ class AES:
         if self.__cipher_method == 1:
             cipher = Crypto.Cipher.AES.new(self.__key.encode("utf-8"), 1)
         else:
-            cipher = Crypto.Cipher.AES.new(self.__key.encode("utf-8"), 2, self.__iv.encode("utf-8"))
+            cipher = Crypto.Cipher.AES.new(self.__key.encode("utf-8"), 2, self.__iv)
         return cipher
 
     def __text_verify(self, text):

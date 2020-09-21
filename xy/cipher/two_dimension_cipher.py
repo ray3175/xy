@@ -16,7 +16,8 @@ class TwoDimensionCipher(OneDimensionCipher):
         start = 0
         _len = len(text)
         cipher_text = list()
-        while (stop:=self.__cut) < _len:
+        stop = self.__cut
+        while stop < _len:
             code_list = [key^ord(i) for i in text[start: stop]]
             cipher_text.extend(code_list)
             key = sum(code_list)
@@ -31,7 +32,8 @@ class TwoDimensionCipher(OneDimensionCipher):
         start = 0
         _len = len(cipher_text)
         text = list()
-        while (stop:=self.__cut) < _len:
+        stop = self.__cut
+        while stop < _len:
             _code_list = [ord(i) for i in cipher_text[start: stop]]
             code_list = [key^i for i in _code_list]
             key = sum(_code_list)
