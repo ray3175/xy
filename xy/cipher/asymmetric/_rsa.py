@@ -4,14 +4,14 @@ import rsa      # pip install rsa
 
 class RSA:
     @classmethod
-    def __read_in_file(cls, file_path, data_type="rb"):
+    def _read_in_file(cls, file_path, data_type="rb"):
         with open(file_path, data_type) as x:
             _return = x.read()
             x.close()
         return _return
 
     @classmethod
-    def __write_in_file(cls, file_path, data, data_type="wb"):
+    def _write_in_file(cls, file_path, data, data_type="wb"):
         with open(file_path, data_type) as x:
             x.write(data)
             x.close()
@@ -34,16 +34,16 @@ class RSA:
         if not public_key_path:
             public_key_path = os.path.join(os.getcwd(), "public_key.pem" if not public_is_der else "public_key.der")
         private_key, pubilc_key = private_key.save_pkcs1("PEM" if not private_is_der else "DER"), pubilc_key.save_pkcs1("PEM" if not public_is_der else "DER")
-        cls.__write_in_file(private_key_path, private_key)
-        cls.__write_in_file(public_key_path, pubilc_key)
+        cls._write_in_file(private_key_path, private_key)
+        cls._write_in_file(public_key_path, pubilc_key)
         return True
 
     @classmethod
     def __load_key(cls, key_path, key_type="private", _type="PEM"):
         if key_type == "private":
-            _return = rsa.PrivateKey.load_pkcs1(cls.__read_in_file(key_path), _type)
+            _return = rsa.PrivateKey.load_pkcs1(cls._read_in_file(key_path), _type)
         else:
-            _return = rsa.PublicKey.load_pkcs1(cls.__read_in_file(key_path), _type)
+            _return = rsa.PublicKey.load_pkcs1(cls._read_in_file(key_path), _type)
         return _return
 
     @classmethod

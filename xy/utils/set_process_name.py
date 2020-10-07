@@ -1,7 +1,7 @@
 import setproctitle     # pip install setproctitle
 
 
-class ProcessName:
+class SetProcessName:
     @classmethod
     def set_name(cls, name: str) -> bool:
         setproctitle.setproctitle(name)

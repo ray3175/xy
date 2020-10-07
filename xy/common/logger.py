@@ -53,6 +53,10 @@ class Logger:
     def __getattr__(self, item):
         return getattr(self.__logger, item)
 
+    @property
+    def logger(self):
+        return self.__logger
+
     def _timed_rotating_file_handler(self, path, when="S", suffix="%Y-%m-%d(%H %M %S).log", extMatch=re.compile(r"^\d{4}-\d{2}-\d{2}\(\d{2}\s\d{2}\s\d{2}\)"), backupCount=30, encoding="utf-8"):
         file_handler = RayTimedRotatingFileHandler(path, when=when, interval=1, backupCount=backupCount, encoding=encoding)
         file_handler.suffix = suffix

@@ -1,6 +1,4 @@
 class XYException(Exception):
-    level = 10
-
     def __call__(self, *args, **kwargs):
         return self.msg
 
@@ -10,18 +8,17 @@ class XYException(Exception):
 
 
 class XYError(XYException):
-    level = 9
+    pass
 
 
 class XYWarning(XYError):
-    level = 6
+    pass
 
 
 class XYInfo(XYWarning):
-    level = 3
+    pass
 
 
 class XYDebug(XYInfo):
-    level = 0
-
+    pass
 
