@@ -11,17 +11,17 @@ class Time:
         self.__format = format
         self.__unit = unit
         if isinstance(timer, (int, float)):
-            self.__time = timer
+            self.__time_stamp = timer
         elif isinstance(timer, str):
-            self.__time = time.mktime(time.strptime(timer, format))
+            self.__time_stamp = time.mktime(time.strptime(timer, format))
         elif isinstance(timer, datetime.datetime):
-            self.__time = time.mktime(timer.utctimetuple())
+            self.__time_stamp = time.mktime(timer.utctimetuple())
         elif isinstance(timer, datetime.date):
-            self.__time = time.mktime(timer.timetuple())
+            self.__time_stamp = time.mktime(timer.timetuple())
         elif isinstance(timer, time.struct_time):
-            self.__time = time.mktime(timer)
+            self.__time_stamp = time.mktime(timer)
         else:
-            self.__time = time.time()
+            self.__time_stamp = time.time()
 
     def __str__(self):
         return self.to_string()
@@ -34,31 +34,49 @@ class Time:
 
     def __check_compare_type(self, other):
         if not isinstance(other, self.__class__):
-            raise XYException("比较类型必须为xy.utils.time.Time")
+            raise XYException("比较类型必须为 xy.utils.time.Time！")
 
     def __eq__(self, other):
+        """
+        other: xy.utils.time.Time()
+        """
         self.__check_compare_type(other)
-        return self.__time == other.to_time_stamp()
+        return self.__time_stamp == other.to_time_stamp()
 
     def __ne__(self, other):
+        """
+        other: xy.utils.time.Time()
+        """
         self.__check_compare_type(other)
-        return self.__time != other.to_time_stamp()
+        return self.__time_stamp != other.to_time_stamp()
 
     def __gt__(self, other):
+        """
+        other: xy.utils.time.Time()
+        """
         self.__check_compare_type(other)
-        return self.__time > other.to_time_stamp()
+        return self.__time_stamp > other.to_time_stamp()
 
     def __lt__(self, other):
+        """
+        other: xy.utils.time.Time()
+        """
         self.__check_compare_type(other)
-        return self.__time < other.to_time_stamp()
+        return self.__time_stamp < other.to_time_stamp()
 
     def __ge__(self, other):
+        """
+        other: xy.utils.time.Time()
+        """
         self.__check_compare_type(other)
-        return self.__time >= other.to_time_stamp()
+        return self.__time_stamp >= other.to_time_stamp()
 
     def __le__(self, other):
+        """
+        other: xy.utils.time.Time()
+        """
         self.__check_compare_type(other)
-        return self.__time <= other.to_time_stamp()
+        return self.__time_stamp <= other.to_time_stamp()
 
     def set_format(self, format="%Y-%m-%d %H:%M:%S"):
         self.__format = format
@@ -67,7 +85,7 @@ class Time:
         self.__unit = unit
 
     def to_time(self) -> time.struct_time:
-        return time.localtime(self.__time)
+        return time.localtime(self.__time_stamp)
 
     def to_string(self, format=None) -> str:
         if not format:
@@ -75,7 +93,7 @@ class Time:
         return time.strftime(format, self.to_time())
 
     def to_time_stamp(self) -> float:
-        return self.__time
+        return self.__time_stamp
 
     def to_datetime(self, format=None) -> datetime.datetime:
         if not format:
