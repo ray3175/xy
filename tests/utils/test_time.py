@@ -77,6 +77,18 @@ class Test_Time:
         assert str(time_add_1) == "2020-09-28 22:18:20"
         assert str(time_sub_1) == "2020-09-28 22:18:18"
 
+    def test_logical_operation(self):
+        a = 1602334627.6410217
+        b = 1602334627.6410219
+        a_t = Time(a)
+        b_t = Time(b)
+        assert (a_t == b_t) == (a == b)
+        assert (a_t != b_t) == (a != b)
+        assert (a_t <= b_t) == (a <= b)
+        assert (a_t >= b_t) == (a >= b)
+        assert (a_t < b_t) == (a < b)
+        assert (a_t > b_t) == (a > b)
+
 
 if __name__ == "__main__":
     pytest.main(["-v", "-s", "test_time.py"])
