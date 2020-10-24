@@ -16,8 +16,8 @@ class Test_Time:
     def teardown(self):
         pass
 
-    def test_to_time(self):
-        obj_time = self.time.to_time()
+    def test_to_struct_time(self):
+        obj_time = self.time.to_struct_time()
         assert obj_time.tm_year == 2020
         assert obj_time.tm_mon == 9
         assert obj_time.tm_mday == 28
