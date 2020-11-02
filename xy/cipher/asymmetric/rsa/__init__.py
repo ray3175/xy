@@ -45,14 +45,14 @@ class RSA:
             x.write(data)
             x.close()
 
-    def write_in_file(self, private_key_path=None, public_key_path=None, methods="PEM"):
+    def write_in_file(self, public_key_path=None, private_key_path=None, methods="PEM"):
         """
         :param methods: ["PEM"|"DER"]
         """
-        if not private_key_path:
-            private_key_path = os.path.join(os.getcwd(), "private.key")
         if not public_key_path:
             public_key_path = os.path.join(os.getcwd(), "public.key")
+        if not private_key_path:
+            private_key_path = os.path.join(os.getcwd(), "private.key")
         public_key, private_key = self.new_pkcs1(methods)
         self._write_in_file(public_key_path, public_key)
         self._write_in_file(private_key_path, private_key)

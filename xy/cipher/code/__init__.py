@@ -25,7 +25,7 @@ class Code:
 
     def decode(self, _bytes: bytes) -> bytes:
         """
-        将普通的self.__method bytes类型转换成普通bytes类型
+        将self.__method bytes类型转换成普通bytes类型
         """
         return self.DECODE_DICT[self.__method](_bytes)
 

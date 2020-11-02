@@ -14,20 +14,19 @@ class Test_RSA:
                 text = x.read()
                 x.close()
             return text
-
         self.__text = "RSA测试文本！"
         self.__path = tempfile.mkdtemp()
-        private_key_pem_path = os.path.join(self.__path, "private_key.pem")
-        private_key_der_path = os.path.join(self.__path, "private_key.der")
         pubilc_key_pem_path = os.path.join(self.__path, "pubilc_key.pem")
         pubilc_key_der_path = os.path.join(self.__path, "pubilc_key.der")
+        private_key_pem_path = os.path.join(self.__path, "private_key.pem")
+        private_key_der_path = os.path.join(self.__path, "private_key.der")
         self.rsa = RSA()
-        self.rsa.write_in_file(private_key_path=private_key_pem_path, public_key_path=pubilc_key_pem_path)
-        self.rsa.write_in_file(private_key_path=private_key_der_path, public_key_path=pubilc_key_der_path, methods="DER")
-        self.private_pem = RSAPrivate(read(private_key_pem_path), "PEM")
-        self.private_der = RSAPrivate(read(private_key_der_path), "DER")
+        self.rsa.write_in_file(public_key_path=pubilc_key_pem_path, private_key_path=private_key_pem_path)
+        self.rsa.write_in_file(public_key_path=pubilc_key_der_path, private_key_path=private_key_der_path, methods="DER")
         self.public_pem = RSAPublic(read(pubilc_key_pem_path), "PEM")
         self.public_der = RSAPublic(read(pubilc_key_der_path), "DER")
+        self.private_pem = RSAPrivate(read(private_key_pem_path), "PEM")
+        self.private_der = RSAPrivate(read(private_key_der_path), "DER")
 
     def teardown_class(self):
         if os.path.exists(self.__path):

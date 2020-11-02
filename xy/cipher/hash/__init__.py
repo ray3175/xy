@@ -11,7 +11,6 @@ class Hash:
         self.__type = hash_type
         self.__salt = salt.encode("utf-8") if isinstance(salt, str) else salt
         self.__iterations = iterations
-        hashlib.sha256("aaa".encode("utf-8")).digest()
 
     def encrypt(self, _bytes: bytes) -> bytes:
         return hashlib.pbkdf2_hmac(self.__type, _bytes, self.__salt, self.__iterations) if self.__salt else getattr(hashlib, self.__type)(_bytes).digest()
