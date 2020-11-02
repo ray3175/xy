@@ -8,19 +8,8 @@ class IsPd:
         :param pd: pandas.core.frame.DataFrame
         :return: bool
         """
-        _return = None
+        _return = False
         if isinstance(pd, pandas.DataFrame):
-            _return = True
-        return _return
-
-    @classmethod
-    def is_not_pd(cls, pd):
-        """
-        :param pd: pandas.core.frame.DataFrame
-        :return: bool
-        """
-        _return = None
-        if not isinstance(pd, pandas.DataFrame):
             _return = True
         return _return
 
@@ -35,10 +24,3 @@ class IsPd:
             _return = pd.empty
         return _return
 
-    @classmethod
-    def is_not_empty(cls, pd):
-        """
-        :param pd: pandas.core.frame.DataFrame
-        :return: bool
-        """
-        return not cls.is_empty(pd)

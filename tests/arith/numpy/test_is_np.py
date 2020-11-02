@@ -25,16 +25,8 @@ class Test_IsNp:
         assert self.is_np.is_np(self.__np_1) is True
 
     def test_is_np_1(self):
-        assert self.is_np.is_np(self.__list_0) is None
-        assert self.is_np.is_np(self.__list_1) is None
-
-    def test_is_not_np_0(self):
-        assert self.is_np.is_not_np(self.__np_0) is None
-        assert self.is_np.is_not_np(self.__np_1) is None
-
-    def test_is_not_np_1(self):
-        assert self.is_np.is_not_np(self.__list_0) is True
-        assert self.is_np.is_not_np(self.__list_1) is True
+        assert self.is_np.is_np(self.__list_0) is False
+        assert self.is_np.is_np(self.__list_1) is False
 
     def test_is_empty_0(self):
         assert self.is_np.is_empty(self.__np_0) is False

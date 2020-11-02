@@ -8,7 +8,7 @@ class TimeStructTime(TimeFunction):
         super(TimeStructTime, self).__init__(timer, format)
         self.init_struct_time(timer, format)
 
-    def init_struct_time(self, timer, format):
+    def init_struct_time(self, timer, format="%Y-%m-%d %H:%M:%S"):
         if isinstance(timer, (int, float)):
             self.__struct_time = self.timestamp2struct_time(timer)
         elif isinstance(timer, time.struct_time):

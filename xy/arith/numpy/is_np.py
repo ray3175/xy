@@ -8,19 +8,8 @@ class IsNp:
         :param np: numpy.ndarray
         :return: bool
         """
-        _return = None
+        _return = False
         if isinstance(np, numpy.ndarray):
-            _return = True
-        return _return
-
-    @classmethod
-    def is_not_np(cls, np):
-        """
-        :param np: numpy.ndarray
-        :return: bool
-        """
-        _return = None
-        if not isinstance(np, numpy.ndarray):
             _return = True
         return _return
 

@@ -8,7 +8,7 @@ class TimeStamp(TimeFunction):
         super(TimeStamp, self).__init__(timer, format)
         self.init_time_stamp(timer, format)
 
-    def init_time_stamp(self, timer, format):
+    def init_time_stamp(self, timer, format="%Y-%m-%d %H:%M:%S"):
         if isinstance(timer, (int, float)):
             self.__time_stamp = timer
         elif isinstance(timer, time.struct_time):

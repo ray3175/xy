@@ -8,7 +8,7 @@ class TimeDateTime(TimeFunction):
         super(TimeDateTime, self).__init__(timer, format)
         self.init_datetime(timer, format)
 
-    def init_datetime(self, timer, format):
+    def init_datetime(self, timer, format="%Y-%m-%d %H:%M:%S"):
         if isinstance(timer, (int, float)):
             self.__datetime = self.timestamp2datetime(timer)
         elif isinstance(timer, time.struct_time):

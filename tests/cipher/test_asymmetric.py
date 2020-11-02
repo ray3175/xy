@@ -2,20 +2,32 @@ import pytest
 import os
 import shutil
 import tempfile
-from xy.cipher.asymmetric._rsa import RSA
+from xy.cipher.asymmetric.rsa import RSA
+from xy.cipher.asymmetric.rsa.rsa_public import RSAPublic
+from xy.cipher.asymmetric.rsa.rsa_private import RSAPrivate
 
 
 class Test_RSA:
     def setup_class(self):
+        def read(path):
+            with open(path, "rb") as x:
+                text = x.read()
+                x.close()
+            return text
+
         self.__text = "RSA测试文本！"
         self.__path = tempfile.mkdtemp()
-        self.__private_key_pem_path = os.path.join(self.__path, "private_key.pem")
-        self.__private_key_der_path = os.path.join(self.__path, "private_key.der")
-        self.__pubilc_key_pem_path = os.path.join(self.__path, "pubilc_key.pem")
-        self.__pubilc_key_der_path = os.path.join(self.__path, "pubilc_key.der")
+        private_key_pem_path = os.path.join(self.__path, "private_key.pem")
+        private_key_der_path = os.path.join(self.__path, "private_key.der")
+        pubilc_key_pem_path = os.path.join(self.__path, "pubilc_key.pem")
+        pubilc_key_der_path = os.path.join(self.__path, "pubilc_key.der")
         self.rsa = RSA()
-        self.rsa.newkeys(private_key_path=self.__private_key_pem_path, public_key_path=self.__pubilc_key_pem_path)
-        self.rsa.newkeys(private_key_path=self.__private_key_der_path, public_key_path=self.__pubilc_key_der_path, private_is_der=True, public_is_der=True)
+        self.rsa.write_in_file(private_key_path=private_key_pem_path, public_key_path=pubilc_key_pem_path)
+        self.rsa.write_in_file(private_key_path=private_key_der_path, public_key_path=pubilc_key_der_path, methods="DER")
+        self.private_pem = RSAPrivate(read(private_key_pem_path), "PEM")
+        self.private_der = RSAPrivate(read(private_key_der_path), "DER")
+        self.public_pem = RSAPublic(read(pubilc_key_pem_path), "PEM")
+        self.public_der = RSAPublic(read(pubilc_key_der_path), "DER")
 
     def teardown_class(self):
         if os.path.exists(self.__path):
@@ -27,23 +39,27 @@ class Test_RSA:
     def teardown(self):
         pass
 
-    def test_encrypt_decrypt_pem(self):
-        content = self.rsa.encrypt(self.__text, self.__pubilc_key_pem_path)
-        assert self.rsa.decrypt(content, self.__private_key_pem_path) == self.__text
+    def test_rsa_encrypt_decrypt(self):
+        content = self.rsa.encrypt(self.__text.encode("utf-8"))
+        assert self.rsa.decrypt(content).decode("utf-8") == self.__text
+
+    def test_rsa_encrypt_decrypt_pem(self):
+        content = self.public_pem.encrypt(self.__text.encode("utf-8"))
+        assert self.private_pem.decrypt(content).decode("utf-8") == self.__text
 
     def test_encrypt_decrypt_der(self):
-        content = self.rsa.encrypt(self.__text, self.__pubilc_key_der_path, _type="DER")
-        assert self.rsa.decrypt(content, self.__private_key_der_path, _type="DER") == self.__text
+        content = self.public_der.encrypt(self.__text.encode("utf-8"))
+        assert self.private_der.decrypt(content).decode("utf-8") == self.__text
 
-    def test_sign_verify_pem(self):
+    def test_sign_verify_sha256(self):
         sign_type = "SHA-256"
-        sign_content = self.rsa.sign(self.__text, self.__private_key_pem_path, sign_type)
-        assert self.rsa.verify(self.__text, sign_content, self.__pubilc_key_pem_path) == sign_type
+        sign = self.private_pem.sign(self.__text.encode("utf-8"), sign_type)
+        assert self.public_pem.verify(self.__text.encode("utf-8"), sign) == sign_type
 
-    def test_sign_verify_der(self):
+    def test_sign_verify_md5(self):
         sign_type = "MD5"
-        sign_content = self.rsa.sign(self.__text, self.__private_key_der_path, sign_type, _type="DER")
-        assert self.rsa.verify(self.__text, sign_content, self.__pubilc_key_der_path, _type="DER") == sign_type
+        sign = self.private_der.sign(self.__text.encode("utf-8"), sign_type)
+        assert self.public_der.verify(self.__text.encode("utf-8"), sign) == sign_type
 
 
 if __name__ == "__main__":

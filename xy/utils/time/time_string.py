@@ -8,7 +8,7 @@ class TimeString(TimeFunction):
         super(TimeString, self).__init__(timer, format)
         self.init_time_string(timer, format)
 
-    def init_time_string(self, timer, format):
+    def init_time_string(self, timer, format="%Y-%m-%d %H:%M:%S"):
         if isinstance(timer, (int, float)):
             self.__time_string = self.timestamp2string(timer, format)
         elif isinstance(timer, time.struct_time):
