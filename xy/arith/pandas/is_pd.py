@@ -8,10 +8,7 @@ class IsPd:
         :param pd: pandas.core.frame.DataFrame
         :return: bool
         """
-        _return = False
-        if isinstance(pd, pandas.DataFrame):
-            _return = True
-        return _return
+        return isinstance(pd, pandas.DataFrame)
 
     @classmethod
     def is_empty(cls, pd):

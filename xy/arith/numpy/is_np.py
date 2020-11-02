@@ -8,10 +8,7 @@ class IsNp:
         :param np: numpy.ndarray
         :return: bool
         """
-        _return = False
-        if isinstance(np, numpy.ndarray):
-            _return = True
-        return _return
+        return isinstance(np, numpy.ndarray)
 
     @classmethod
     def is_empty(cls, np):
