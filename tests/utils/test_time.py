@@ -43,37 +43,32 @@ class Test_Time:
         assert obj_date_time.second == 19
 
     def test_arithmetic_weeks(self):
-        self.time.set_unit("weeks")
-        time_add_1 = self.time + 1
-        time_sub_1 = self.time - 1
+        time_add_1 = self.time + {"weeks": 1}
+        time_sub_1 = self.time - {"weeks": 1}
         assert str(time_add_1) == "2020-10-05 22:18:19"
         assert str(time_sub_1) == "2020-09-21 22:18:19"
 
     def test_arithmetic_days(self):
-        self.time.set_unit("days")
-        time_add_1 = self.time + 1
-        time_sub_1 = self.time - 1
+        time_add_1 = self.time + {"days": 1}
+        time_sub_1 = self.time - {"days": 1}
         assert str(time_add_1) == "2020-09-29 22:18:19"
         assert str(time_sub_1) == "2020-09-27 22:18:19"
 
     def test_arithmetic_hours(self):
-        self.time.set_unit("hours")
-        time_add_1 = self.time + 1
-        time_sub_1 = self.time - 1
+        time_add_1 = self.time + {"hours": 1}
+        time_sub_1 = self.time - {"hours": 1}
         assert str(time_add_1) == "2020-09-28 23:18:19"
         assert str(time_sub_1) == "2020-09-28 21:18:19"
 
     def test_arithmetic_minutes(self):
-        self.time.set_unit("minutes")
-        time_add_1 = self.time + 1
-        time_sub_1 = self.time - 1
+        time_add_1 = self.time + {"minutes": 1}
+        time_sub_1 = self.time - {"minutes": 1}
         assert str(time_add_1) == "2020-09-28 22:19:19"
         assert str(time_sub_1) == "2020-09-28 22:17:19"
 
     def test_arithmetic_seconds(self):
-        self.time.set_unit("seconds")
-        time_add_1 = self.time + 1
-        time_sub_1 = self.time - 1
+        time_add_1 = self.time + {"seconds": 1}
+        time_sub_1 = self.time - {"seconds": 1}
         assert str(time_add_1) == "2020-09-28 22:18:20"
         assert str(time_sub_1) == "2020-09-28 22:18:18"
 

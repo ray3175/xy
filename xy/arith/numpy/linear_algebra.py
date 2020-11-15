@@ -57,3 +57,17 @@ class LinearAlgebra:
             _return = cls.determinant(array, validate=False) * inverse if ((inverse:=cls.inverse(array, validate=False)) is not False) else False
         return _return
 
+    @classmethod
+    def solve(cls, a, b):
+        """
+        设，解三元一次方程组：
+            ① a[0][0]x + a[0][1]y + a[0][2]z = b[0]
+            ② a[1][0]x + a[1][1]y + a[1][2]z = b[1]
+            ③ a[2][0]x + a[2][1]y + a[2][2]z = b[2]
+        :param a: 方程组x, y的系数。其值必须是方阵。
+        :param b: 方程组的值。
+        只有当方程组 x, y, z 有唯一解的时候才能解方程。
+        :return: [x, y, z]
+        """
+        return numpy.linalg.solve(a, b)
+

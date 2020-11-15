@@ -7,23 +7,49 @@ from .time_string import TimeString
 
 
 class Time(TimeStamp, TimeStructTime, TimeDateTime, TimeString):
-    def __init__(self, timer=None, format="%Y-%m-%d %H:%M:%S", unit="days"):
-        """
-        :param unit: days | seconds | microseconds | milliseconds | minutes | hours | weeks | fold
-        """
+    def __init__(self, timer=None, format="%Y-%m-%d %H:%M:%S"):
         self.__timer = timer
         self.__format = format
-        self.__unit = unit
-        super(Time, self).__init__(timer)
+        super(Time, self).__init__(timer, format)
 
     def __str__(self):
         return self.to_string()
 
-    def __add__(self, other: float):
-        return self.__class__(self.datetime + datetime.timedelta(**{self.__unit: other}), self.__format, self.__unit)
+    def __add__(self, other: (int, float, dict, datetime.timedelta)):
+        """
+        :param other:
+            (int, float)类型： 当前类self.time_stamp + (int, float)
+            dict类型： 当前类self.datetime + datetime.timedelta(**dict)
+                key只能为： ["days", "seconds", "microseconds", "milliseconds", "minutes", "hours", "weeks"]
+            datetime.timedelta类型： 当前类self.datetime + other
+        :return: 返回新的 Time 实例。
+        """
+        timer = None
+        if isinstance(other, (int, float)):
+            timer = self.time_stamp + other
+        elif isinstance(other, (dict, datetime.timedelta)):
+            if isinstance(other, dict):
+                other = self.get_timedelta(**other)
+            timer = self.datetime + other
+        return self.__class__(timer, self.__format)
 
-    def __sub__(self, other: float):
-        return self.__class__(self.datetime - datetime.timedelta(**{self.__unit: other}), self.__format, self.__unit)
+    def __sub__(self, other: (float, dict, datetime.timedelta)):
+        """
+        :param other:
+            (int, float)类型： 当前类self.time_stamp - (int, float)
+            dict类型： 当前类self.datetime - datetime.timedelta(**dict)
+                key只能为： ["days", "seconds", "microseconds", "milliseconds", "minutes", "hours", "weeks"]
+            datetime.timedelta类型： 当前类self.datetime - other
+        :return: 返回新的 Time 实例。
+        """
+        timer = None
+        if isinstance(other, (int, float)):
+            timer = self.time_stamp - other
+        elif isinstance(other, (dict, datetime.timedelta)):
+            if isinstance(other, dict):
+                other = self.get_timedelta(**other)
+            timer = self.datetime - other
+        return self.__class__(timer, self.__format)
 
     def __check_compare_type(self, other):
         if not isinstance(other, self.__class__):
@@ -95,31 +121,19 @@ class Time(TimeStamp, TimeStructTime, TimeDateTime, TimeString):
     def format(self):
         self.set_format()
 
-    @property
-    def unit(self):
-        return self.__unit
-
-    @unit.setter
-    def unit(self, unit):
-        self.__unit = unit
-
-    def init(self, timer=None, format="%Y-%m-%d %H:%M:%S", unit="days"):
+    def init(self, timer=None, format="%Y-%m-%d %H:%M:%S"):
         self.__timer = timer
         self.__format = format
-        self.__unit = unit
         self.init_time_stamp(timer, format)
         self.init_struct_time(timer, format)
         self.init_datetime(timer, format)
         self.init_time_string(timer, format)
 
     def set_timer(self, timer=None):
-        self.init(timer, self.__format, self.__unit)
+        self.init(timer, self.__format)
 
     def set_format(self, format="%Y-%m-%d %H:%M:%S"):
-        self.init(self.__timer, format, self.__unit)
-
-    def set_unit(self, unit="days"):
-        self.__unit = unit
+        self.init(self.__timer, format)
 
     def to_string(self, format=None) -> str:
         if format:
