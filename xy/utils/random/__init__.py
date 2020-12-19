@@ -3,7 +3,7 @@ import random
 import copy
 
 
-class Radom:
+class Random:
     def __init__(self):
         pass
 
