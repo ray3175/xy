@@ -31,7 +31,7 @@ class Radom:
         """ 获取乱序字符串 """
         return "".join(self.shuffle(list(string), factor))
 
-    def shuffle(self, obj: list or bytearray or str, factor: Callable = None, copy_type: int = 0):
+    def shuffle(self, obj: (list, bytearray, str), factor: Callable = None, copy_type: int = 0):
         """
         :param obj: 可迭代参数
         :param factor: 可 call 的对象，call 后的值为 0 - 1 之间。该值影响乱序结果，如果该值唯一，则返回结果唯一。
