@@ -1,9 +1,9 @@
-import pyautogui
+import pyautogui        # pip install pyautogui
 from ....stdlib_overwrite.dict import Dict
 from .timing import TimingFunction
 
 
-class SystemOperation:
+class SystemOperator:
     @staticmethod
     def size() -> pyautogui.Size:
         """ 获取屏幕尺寸 """
