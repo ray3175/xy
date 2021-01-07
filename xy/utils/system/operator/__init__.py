@@ -24,13 +24,13 @@ class SystemOperator:
         pyautogui.moveTo(x=x, y=y, duration=duration, tween=tween)
 
     @staticmethod
-    def move_to_rel(x: (int, float), y: (int, float), duration: (int, float) = 0.0, tween: callable = TimingFunction.liner) -> None:
+    def move_to_relative(x: (int, float), y: (int, float), duration: (int, float) = 0.0, tween: callable = TimingFunction.liner) -> None:
         """
             将鼠标移动到（x, y）相对位置。
             duration：持续时间。
             tween：移动轨迹。
         """
-        pyautogui.moveRel(x=x, y=y, duration=duration, tween=tween)
+        pyautogui.moveRel(xOffset=x, yOffset=y, duration=duration, tween=tween)
 
     @staticmethod
     def mouse_down():
@@ -104,7 +104,7 @@ class SystemOperator:
         pyautogui.dragTo(x=x, y=y, duration=duration, tween=tween, button=button)
 
     @staticmethod
-    def drag_rel(x: (int, float), y: (int, float), duration: (int, float) = 0.0, tween: callable = TimingFunction.liner, button="primary"):
+    def drag_to_relative(x: (int, float), y: (int, float), duration: (int, float) = 0.0, tween: callable = TimingFunction.liner, button="primary"):
         """
             触发当前button键，将鼠标移动到（x, y）相对位置，随后释放按键。
             duration：持续时间。
@@ -116,7 +116,7 @@ class SystemOperator:
                 primary：主键
                 secondary: 辅键
         """
-        pyautogui.dragRel(x=x, y=y, duration=duration, tween=tween, button=button)
+        pyautogui.dragRel(xOffset=x, yOffset=y, duration=duration, tween=tween, button=button)
 
     @staticmethod
     def scroll(clicks: int):
@@ -166,12 +166,12 @@ class SystemOperator:
     @staticmethod
     def get_size() -> Dict:
         """ 获取屏幕尺寸 """
-        size = SystemOperation.size()
+        size = SystemOperator.size()
         return Dict(x=size.width, y=size.height)
 
     @staticmethod
     def get_mouse_position() -> Dict:
         """ 获取鼠标当前位置 """
-        position = SystemOperation.mouse_position()
+        position = SystemOperator.mouse_position()
         return Dict(x=position.x, y=position.y)
 
