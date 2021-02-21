@@ -6,7 +6,7 @@ from ..file import FileModel
 
 
 class DirectoryModel(FileSystem):
-    def __init__(self, directory_path, scan_directory=False, scan_iterate=False, directory_regex=None, exclude_directory_regex=None, file_regex=None, exclude_file_regex=None):
+    def __init__(self, directory_path, scan_directory=False, scan_iterate=False, directory_regex=None, exclude_directory_regex=None, file_regex=None, exclude_file_regex=None, file_model=FileModel):
         """
         :param directory_path: 文件夹路径
         :param scan_directory: 是否扫描文件夹下的所有文件
@@ -19,7 +19,7 @@ class DirectoryModel(FileSystem):
         super().__init__(directory_path)
         self._make_directory()
         if scan_directory:
-            self.scan_directory(scan_iterate, directory_regex, exclude_directory_regex, file_regex, exclude_file_regex)
+            self.scan_directory(scan_iterate, directory_regex, exclude_directory_regex, file_regex, exclude_file_regex, file_model)
 
     def _make_directory(self):
         if not os.path.exists(self.path):
@@ -52,7 +52,7 @@ class DirectoryModel(FileSystem):
             if os.path.isdir(path):
                 if self._is_valid_directory(name, directory_regex, exclude_directory_regex):
                     self.number_directory += 1
-                    self.documents.append(self.__class__(path, scan_directory=scan_iterate, scan_iterate=scan_iterate, directory_regex=directory_regex, exclude_directory_regex=exclude_directory_regex, file_regex=file_regex, exclude_file_regex=exclude_file_regex))
+                    self.documents.append(self.__class__(path, scan_iterate, scan_iterate, directory_regex, exclude_directory_regex, file_regex, exclude_file_regex, file_model))
             elif os.path.isfile(path):
                 if self._is_valid_file(name, file_regex, exclude_file_regex):
                     self.number_file += 1
