@@ -1,9 +1,9 @@
 import chardet      # pip install chardet
 
 
-class FileCodeCheck:
+class CodeCheck:
     """
-    文件编码检查。
+    编码检查。
     """
 
     @classmethod

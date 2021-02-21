@@ -21,7 +21,7 @@ setup(
     author=author,
     author_email=author_email,
     description="个人封装的一些类库！",
-    packages=find_packages(exclude=("tests", "tests.*")),
+    packages=find_packages(exclude=("tests", "tests.*", "test.*")),
     include_package_data=True,
     python_requires=">=3.9.*",
     install_requires=[]
