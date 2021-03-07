@@ -17,7 +17,7 @@ class QRCode:
         self.__qrcode.make_image().save(save_path)
         return True
 
-    def new_with_bytes(self, data: Any, optimize: int = 0, img_type: str = "jpeg") -> bytes:
+    def new_with_bytes(self, data: Any, optimize: int = 0, img_type: str = "png") -> bytes:
         self.__new(data, optimize)
         return RayBytesIO.pil_image_to_bytes_with_memory(self.__qrcode.make_image(), img_type)
 

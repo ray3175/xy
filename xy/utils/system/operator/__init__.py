@@ -1,3 +1,4 @@
+from typing import Callable
 import pyautogui        # pip install pyautogui
 from ....stdlib_overwrite.dict import Dict
 from .timing import TimingFunction
@@ -15,7 +16,7 @@ class SystemOperator:
         return pyautogui.position()
 
     @staticmethod
-    def move_to(x: (int, float), y: (int, float), duration: (int, float) = 0.0, tween: callable = TimingFunction.liner) -> None:
+    def move_to(x: (int, float), y: (int, float), duration: (int, float) = 0.0, tween: Callable = TimingFunction.liner) -> None:
         """
             将鼠标移动到（x, y）绝对位置。
             duration：持续时间。
@@ -24,7 +25,7 @@ class SystemOperator:
         pyautogui.moveTo(x=x, y=y, duration=duration, tween=tween)
 
     @staticmethod
-    def move_to_relative(x: (int, float), y: (int, float), duration: (int, float) = 0.0, tween: callable = TimingFunction.liner) -> None:
+    def move_to_relative(x: (int, float), y: (int, float), duration: (int, float) = 0.0, tween: Callable = TimingFunction.liner) -> None:
         """
             将鼠标移动到（x, y）相对位置。
             duration：持续时间。
@@ -89,7 +90,7 @@ class SystemOperator:
         pyautogui.tripleClick(button=button)
 
     @staticmethod
-    def drag_to(x: (int, float), y: (int, float), duration: (int, float) = 0.0, tween: callable = TimingFunction.liner, button="primary"):
+    def drag_to(x: (int, float), y: (int, float), duration: (int, float) = 0.0, tween: Callable = TimingFunction.liner, button="primary"):
         """
             触发当前button键，将鼠标移动到（x, y）绝对位置，随后释放按键。
             duration：持续时间。
@@ -104,7 +105,7 @@ class SystemOperator:
         pyautogui.dragTo(x=x, y=y, duration=duration, tween=tween, button=button)
 
     @staticmethod
-    def drag_to_relative(x: (int, float), y: (int, float), duration: (int, float) = 0.0, tween: callable = TimingFunction.liner, button="primary"):
+    def drag_to_relative(x: (int, float), y: (int, float), duration: (int, float) = 0.0, tween: Callable = TimingFunction.liner, button="primary"):
         """
             触发当前button键，将鼠标移动到（x, y）相对位置，随后释放按键。
             duration：持续时间。

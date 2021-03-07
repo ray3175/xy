@@ -1,3 +1,4 @@
+from typing import Callable
 import Crypto.Cipher.AES        # pip install pycryptodome
 import Crypto.Random
 from ...code import Code
@@ -5,7 +6,7 @@ from .pad import Pad, UnPad
 
 
 class AES:
-    def __init__(self, key: bytes or str = "abcdefgh12345678", iv: bytes or str = None, cipher_method: str or int = "MODE_ECB", pad_method: str = "default", code_method: str = None):
+    def __init__(self, key: (bytes, str) = "abcdefgh12345678", iv: (bytes, str) = None, cipher_method: (str, int) = "MODE_ECB", pad_method: str = "default", code_method: str = None):
         """
         :param key: 密钥，长度16，24，32位。分别对应 AES-128，AES-192，AES-256。
             MODE_CBC，MODE_CFB，MODE_OFB，只能为16位。
@@ -48,14 +49,14 @@ class AES:
             else:
                 yield self.__pad_func(text, key_length)
 
-    def encrypt(self, text: bytes, *args, encode_func: callable = None) -> bytes:
+    def encrypt(self, text: bytes, *args, encode_func: Callable = None) -> bytes:
         cipher = self.__new_cipher()
         cipher_text = cipher.encrypt(b"".join(self.__text_verify(text)))
         if encode_func or (encode_func:=self.__code_func.encode if self.__code_func else self.__code_func):
             cipher_text = encode_func(cipher_text)
         return cipher_text
 
-    def decrypt(self, cipher_text: bytes, unpad=True, *args, decode_func: callable = None) -> bytes:
+    def decrypt(self, cipher_text: bytes, unpad=True, *args, decode_func: Callable = None) -> bytes:
         cipher = self.__new_cipher()
         if decode_func or (decode_func:=self.__code_func.decode if self.__code_func else self.__code_func):
             cipher_text = decode_func(cipher_text)
