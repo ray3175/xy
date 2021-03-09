@@ -11,7 +11,7 @@ class Code:
         "hex": binascii.a2b_hex
     }
 
-    def __init__(self, method: str = "base64"):
+    def __init__(self, method="base64"):
         """
         method: ["base64"|"hex"]
         """

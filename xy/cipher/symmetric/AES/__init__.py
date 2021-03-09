@@ -1,4 +1,4 @@
-from typing import Callable
+from typing import Callable, Union, Optional
 import Crypto.Cipher.AES        # pip install pycryptodome
 import Crypto.Random
 from ...code import Code
@@ -6,7 +6,7 @@ from .pad import Pad, UnPad
 
 
 class AES:
-    def __init__(self, key: (bytes, str) = "abcdefgh12345678", iv: (bytes, str) = None, cipher_method: (str, int) = "MODE_ECB", pad_method: str = "default", code_method: str = None):
+    def __init__(self, key: Union[bytes, str] = "abcdefgh12345678", iv: Union[bytes, str] = None, cipher_method: Union[str, int] = "MODE_ECB", pad_method: str = "default", code_method: Optional[str] = None):
         """
         :param key: 密钥，长度16，24，32位。分别对应 AES-128，AES-192，AES-256。
             MODE_CBC，MODE_CFB，MODE_OFB，只能为16位。

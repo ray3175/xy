@@ -1,3 +1,4 @@
+from typing import Union
 import datetime
 from ...exception import XYException
 from .time_stamp import TimeStamp
@@ -15,7 +16,7 @@ class Time(TimeStamp, TimeStructTime, TimeDateTime, TimeString):
     def __str__(self):
         return self.to_string()
 
-    def __add__(self, other: (int, float, dict, datetime.timedelta)):
+    def __add__(self, other: Union[int, float, dict, datetime.timedelta]):
         """
         :param other:
             (int, float)类型： 当前类self.time_stamp + (int, float)
@@ -33,7 +34,7 @@ class Time(TimeStamp, TimeStructTime, TimeDateTime, TimeString):
             timer = self.datetime + other
         return self.__class__(timer, self.__format)
 
-    def __sub__(self, other: (float, dict, datetime.timedelta)):
+    def __sub__(self, other: Union[int, float, dict, datetime.timedelta]):
         """
         :param other:
             (int, float)类型： 当前类self.time_stamp - (int, float)

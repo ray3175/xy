@@ -1,8 +1,9 @@
+from typing import Union
 import hashlib
 
 
 class Hash:
-    def __init__(self, hash_type="sha512", salt: (bytes, str) = None, iterations: int = 1):
+    def __init__(self, hash_type="sha512", salt: Union[bytes, str] = None, iterations: int = 1):
         """
         :param hash_type: Hash类型。["md5", "sha1", "sha256", "sha512", ...]
         :param salt: 盐值。

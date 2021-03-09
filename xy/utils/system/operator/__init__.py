@@ -1,4 +1,4 @@
-from typing import Callable
+from typing import Callable, Union, List
 import pyautogui        # pip install pyautogui
 from ....stdlib_overwrite.dict import Dict
 from .timing import TimingFunction
@@ -16,7 +16,7 @@ class SystemOperator:
         return pyautogui.position()
 
     @staticmethod
-    def move_to(x: (int, float), y: (int, float), duration: (int, float) = 0.0, tween: Callable = TimingFunction.liner) -> None:
+    def move_to(x: Union[int, float], y: Union[int, float], duration: Union[int, float] = 0.0, tween: Callable = TimingFunction.liner) -> None:
         """
             将鼠标移动到（x, y）绝对位置。
             duration：持续时间。
@@ -25,7 +25,7 @@ class SystemOperator:
         pyautogui.moveTo(x=x, y=y, duration=duration, tween=tween)
 
     @staticmethod
-    def move_to_relative(x: (int, float), y: (int, float), duration: (int, float) = 0.0, tween: Callable = TimingFunction.liner) -> None:
+    def move_to_relative(x: Union[int, float], y: Union[int, float], duration: Union[int, float] = 0.0, tween: Callable = TimingFunction.liner) -> None:
         """
             将鼠标移动到（x, y）相对位置。
             duration：持续时间。
@@ -90,7 +90,7 @@ class SystemOperator:
         pyautogui.tripleClick(button=button)
 
     @staticmethod
-    def drag_to(x: (int, float), y: (int, float), duration: (int, float) = 0.0, tween: Callable = TimingFunction.liner, button="primary"):
+    def drag_to(x: Union[int, float], y: Union[int, float], duration: Union[int, float] = 0.0, tween: Callable = TimingFunction.liner, button="primary"):
         """
             触发当前button键，将鼠标移动到（x, y）绝对位置，随后释放按键。
             duration：持续时间。
@@ -105,7 +105,7 @@ class SystemOperator:
         pyautogui.dragTo(x=x, y=y, duration=duration, tween=tween, button=button)
 
     @staticmethod
-    def drag_to_relative(x: (int, float), y: (int, float), duration: (int, float) = 0.0, tween: Callable = TimingFunction.liner, button="primary"):
+    def drag_to_relative(x: Union[int, float], y: Union[int, float], duration: Union[int, float] = 0.0, tween: Callable = TimingFunction.liner, button="primary"):
         """
             触发当前button键，将鼠标移动到（x, y）相对位置，随后释放按键。
             duration：持续时间。
@@ -140,7 +140,7 @@ class SystemOperator:
         pyautogui.keyUp(key)
 
     @staticmethod
-    def press(keys: (str, list), presses: int = 1, interval: (int, float) = 0.0):
+    def press(keys: Union[str, List[str]], presses: int = 1, interval: Union[int, float] = 0.0):
         """
             按下关键字，随后释放
             keys：要按下的键
@@ -157,7 +157,7 @@ class SystemOperator:
         pyautogui.hotkey(*args, **kwargs)
 
     @staticmethod
-    def typewrite(string: str, interval: (int, float) = 0.0):
+    def typewrite(string: str, interval: Union[int, float] = 0.0):
         """
             输入字符串
             interval：各字符间输入间隔

@@ -6,4 +6,10 @@ SINGLE_DICTIONARY = dict()
 
 SINGLE_DICTIONARY.update(a_0)
 
-load_single_dict(SINGLE_DICTIONARY)
+
+def active():
+    """
+    激活自定义单词多音字。
+    """
+    load_single_dict(SINGLE_DICTIONARY)
+

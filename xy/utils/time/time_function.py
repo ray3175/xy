@@ -1,3 +1,4 @@
+from typing import Union
 import time
 import datetime
 
@@ -6,13 +7,13 @@ class TimeFunction:
     def __init__(self, *args, **kwargs):
         pass
 
-    def timestamp2struct_time(self, timestamp: (int, float)) -> time.struct_time:
+    def timestamp2struct_time(self, timestamp: Union[int, float]) -> time.struct_time:
         return time.localtime(timestamp)
 
-    def timestamp2datetime(self, timestamp: (int, float), tz=None) -> datetime.datetime:
+    def timestamp2datetime(self, timestamp: Union[int, float], tz=None) -> datetime.datetime:
         return datetime.datetime.fromtimestamp(timestamp, tz)
 
-    def timestamp2string(self, timestamp: (int, float), format="%Y-%m-%d %H:%M:%S") -> str:
+    def timestamp2string(self, timestamp: Union[int, float], format="%Y-%m-%d %H:%M:%S") -> str:
         return self.struct_time2string(self.timestamp2struct_time(timestamp), format)
 
     def struct_time2time_stamp(self, struct_time: time.struct_time) -> float:

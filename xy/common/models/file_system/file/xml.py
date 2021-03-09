@@ -1,3 +1,4 @@
+from typing import Union
 try:
     from xml.etree.cElementTree import ElementTree, Element, SubElement
 except ImportError:
@@ -16,7 +17,7 @@ class XMLObject:
     tail： 元素相关联的附加属性，与格式缩进有关
     children： 子节点，list类型
     """
-    def __init__(self, root: (Element, dict)):
+    def __init__(self, root: Union[Element, dict]):
         if isinstance(root, Element):
             self._init_element(root)
         elif isinstance(root, dict):

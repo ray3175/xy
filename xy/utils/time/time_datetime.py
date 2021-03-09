@@ -1,3 +1,4 @@
+from typing import Union
 import time
 import datetime as dt
 from .time_function import TimeFunction
@@ -22,7 +23,7 @@ class TimeDateTime(TimeFunction):
         else:
             self.__datetime = self.timestamp2datetime(time.time())
 
-    def __add__(self, other: (dict, dt.timedelta)):
+    def __add__(self, other: Union[dict, dt.timedelta]):
         """
         :param other:
             dict类型： 当前类self.datetime + datetime.timedelta(**dict)
@@ -34,7 +35,7 @@ class TimeDateTime(TimeFunction):
             other = self.get_timedelta(**other)
         return self.__class__(self.__datetime + other)
 
-    def __sub__(self, other: (dict, dt.timedelta)):
+    def __sub__(self, other: Union[dict, dt.timedelta]):
         """
         :param other:
             dict类型： 当前类self.datetime + datetime.timedelta(**dict)

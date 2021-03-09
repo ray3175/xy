@@ -1,9 +1,13 @@
 import pytest
 from xy.utils.pinyin import PinYin
+from xy.utils.pinyin.single_dictionary import active as single_active
+from xy.utils.pinyin.phrases_dictionary import active as phrases_active
 
 
 class Test_PinYin:
     def setup_class(self):
+        single_active()
+        phrases_active()
         self.pinyin0 = PinYin("爷")
         self.pinyin1 = PinYin("睿爷")
         self.pinyin2 = PinYin("睿睿爷")
