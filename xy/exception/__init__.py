@@ -1,9 +1,9 @@
 class XYException(Exception):
     def __call__(self, *args, **kwargs):
-        return self.msg
+        return self.message
 
     @property
-    def msg(self):
+    def message(self):
         return str(self)
 
 
