@@ -52,13 +52,13 @@ class AES:
     def encrypt(self, text: bytes, *args, encode_func: Callable = None) -> bytes:
         cipher = self.__new_cipher()
         cipher_text = cipher.encrypt(b"".join(self.__text_verify(text)))
-        if encode_func or (encode_func:=self.__code_func.encode if self.__code_func else self.__code_func):
+        if encode_func or (encode_func := self.__code_func.encode if self.__code_func else self.__code_func):
             cipher_text = encode_func(cipher_text)
         return cipher_text
 
     def decrypt(self, cipher_text: bytes, unpad=True, *args, decode_func: Callable = None) -> bytes:
         cipher = self.__new_cipher()
-        if decode_func or (decode_func:=self.__code_func.decode if self.__code_func else self.__code_func):
+        if decode_func or (decode_func := self.__code_func.decode if self.__code_func else self.__code_func):
             cipher_text = decode_func(cipher_text)
         text = cipher.decrypt(cipher_text)
         return self.__unpad_func(text) if unpad else text

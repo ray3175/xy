@@ -3,7 +3,7 @@ from .. import FileSystem
 
 
 class FileModel(FileSystem):
-    def __init__(self, file_path, read_content=False, read_data=False, code_type="utf-8"):
+    def __init__(self, file_path: str, read_content: bool = False, read_data: bool = False, code_type: str = "utf-8"):
         """
         :param file_path: 文件路径
         :param read_content: 是否以bytes读取文件
@@ -24,7 +24,7 @@ class FileModel(FileSystem):
             file.close()
         return self.content
 
-    def read_data(self, code_type="utf-8") -> str:
+    def read_data(self, code_type: str = "utf-8") -> str:
         with open(self.path, "r", encoding=code_type) as file:
             self.data = file.read()
             file.close()
@@ -36,7 +36,7 @@ class FileModel(FileSystem):
             file.close()
         return self.content
 
-    def write_data(self, code_type="utf-8") -> str:
+    def write_data(self, code_type: str = "utf-8") -> str:
         with open(self.path, "w", encoding=code_type) as file:
             file.write(self.data)
             file.close()

@@ -2,10 +2,10 @@ import os
 
 
 class FileSystem:
-    def __init__(self, path):
+    def __init__(self, path: str):
         self._init_path(path)
 
-    def _init_path(self, path):
+    def _init_path(self, path: str):
         self.__path = path
         self.__directory, self.__name = os.path.split(path)
 
@@ -14,7 +14,7 @@ class FileSystem:
         return self.__path
 
     @path.setter
-    def path(self, path):
+    def path(self, path: str):
         self.__path = path
 
     @property
@@ -26,14 +26,14 @@ class FileSystem:
         return self.__name
 
     @name.setter
-    def name(self, name):
+    def name(self, name: str):
         self.__name = name
 
     @name.deleter
     def name(self):
         self.__name = None
 
-    def rename(self, new_name) -> bool:
+    def rename(self, new_name: str) -> bool:
         new_path = os.path.join(self.directory, new_name)
         if not os.path.exists(new_path):
             os.rename(self.path, new_path)

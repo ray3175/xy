@@ -11,7 +11,7 @@ class CodeCheck:
         return chardet.detect(byte_str)["encoding"]
 
     @classmethod
-    def extract_encoding_from_file(cls, file_path) -> str:
+    def extract_encoding_from_file(cls, file_path: str) -> str:
         with open(file_path, "rb") as x:
             byte_str = x.read()
             x.close()

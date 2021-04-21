@@ -54,7 +54,7 @@ class LinearAlgebra:
         """
         _return = None
         if (not validate) or cls.is_equal_row_col(array):
-            _return = cls.determinant(array, validate=False) * inverse if ((inverse:=cls.inverse(array, validate=False)) is not False) else False
+            _return = cls.determinant(array, validate=False) * inverse if ((inverse := cls.inverse(array, validate=False)) is not False) else False
         return _return
 
     @classmethod

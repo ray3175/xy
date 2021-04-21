@@ -1,12 +1,13 @@
+from typing import Union
 import os
 import shutil
-import re
+from re import compile, Pattern
 from .. import FileSystem
 from ..file import FileModel
 
 
 class DirectoryModel(FileSystem):
-    def __init__(self, directory_path, scan_directory=False, scan_iterate=False, directory_regex=None, exclude_directory_regex=None, file_regex=None, exclude_file_regex=None, file_model=FileModel):
+    def __init__(self, directory_path: str, scan_directory: bool = False, scan_iterate: bool = False, directory_regex: Union[Pattern, str, None] = None, exclude_directory_regex: Union[Pattern, str, None] = None, file_regex: Union[Pattern, str, None] = None, exclude_file_regex: Union[Pattern, str, None] = None, file_model=FileModel):
         """
         :param directory_path: 文件夹路径
         :param scan_directory: 是否扫描文件夹下的所有文件
@@ -28,20 +29,28 @@ class DirectoryModel(FileSystem):
     def _is_valid_directory(self, name, directory_regex, exclude_directory_regex):
         _return =True
         if exclude_directory_regex:
-            _return = not re.compile(exclude_directory_regex).search(name)
+            if isinstance(exclude_directory_regex, str):
+                exclude_directory_regex = compile(exclude_directory_regex)
+            _return = not exclude_directory_regex.search(name)
         if _return and directory_regex:
-            _return = re.compile(directory_regex).search(name)
+            if isinstance(directory_regex, str):
+                directory_regex = compile(directory_regex)
+            _return = directory_regex.search(name)
         return _return
 
     def _is_valid_file(self, name, file_regex, exclude_file_regex):
         _return = True
         if exclude_file_regex:
-            _return = not re.compile(exclude_file_regex).search(name)
+            if isinstance(exclude_file_regex, str):
+                exclude_file_regex = compile(exclude_file_regex)
+            _return = not exclude_file_regex.search(name)
         if _return and file_regex:
-            _return = re.compile(file_regex).search(name)
+            if isinstance(file_regex, str):
+                file_regex = compile(file_regex)
+            _return = file_regex.search(name)
         return _return
 
-    def scan_directory(self, scan_iterate=False, directory_regex=None, exclude_directory_regex=None, file_regex=None, exclude_file_regex=None, file_model=FileModel):
+    def scan_directory(self, scan_iterate: bool = False, directory_regex: Union[Pattern, str, None] = None, exclude_directory_regex: Union[Pattern, str, None] = None, file_regex: Union[Pattern, str, None] = None, exclude_file_regex: Union[Pattern, str, None] = None, file_model=FileModel):
         self.documents = list()
         names = os.listdir(self.path)
         self.number_document = len(names)
@@ -58,8 +67,8 @@ class DirectoryModel(FileSystem):
                     self.number_file += 1
                     self.documents.append(file_model(path))
 
-    def rename(self, new_name) -> bool:
-        if _return:=super().rename(new_name):
+    def rename(self, new_name: str) -> bool:
+        if _return := super().rename(new_name):
             self._make_directory()
         return _return
 

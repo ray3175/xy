@@ -1,7 +1,7 @@
-from typing import Union
+from typing import Optional, Union
 try:
     from xml.etree.cElementTree import ElementTree, Element, SubElement
-except ImportError:
+except (ModuleNotFoundError, ImportError):
     from xml.etree.ElementTree import ElementTree, Element, SubElement
 from xy.exception import XYError
 from xy.stdlib_overwrite.list import List
@@ -67,14 +67,14 @@ class XMLObject:
 
 
 class XMLModel(FileModel):
-    def __init__(self, xml_path, read_content=False, read_data=False):
+    def __init__(self, xml_path: str, read_content: bool = False, read_data: bool = False):
         super().__init__(xml_path, read_content, read_data)
 
     def read_data(self, *args, **kwargs) -> XMLObject:
         self.data = XMLObject(ElementTree(file=self.path).getroot())
         return self.data
 
-    def write_data(self, code_type="utf-8", xml_declaration=True) -> XMLObject:
+    def write_data(self, code_type: str = "utf-8", xml_declaration: Optional[bool] = True) -> XMLObject:
         element_tree = ElementTree(element=self.data.to_element())
         element_tree.write(self.path, encoding=code_type, xml_declaration=xml_declaration)
         return self.data
