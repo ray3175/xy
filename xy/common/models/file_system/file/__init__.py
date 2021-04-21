@@ -1,4 +1,5 @@
 import os
+import aiofiles     # pip install aiofiles
 from .. import FileSystem
 
 
@@ -21,25 +22,21 @@ class FileModel(FileSystem):
     def read(self) -> bytes:
         with open(self.path, "rb") as file:
             self.content = file.read()
-            file.close()
         return self.content
 
     def read_data(self, code_type: str = "utf-8") -> str:
         with open(self.path, "r", encoding=code_type) as file:
             self.data = file.read()
-            file.close()
         return self.data
 
     def write(self) -> bytes:
         with open(self.path, "wb") as file:
             file.write(self.content)
-            file.close()
         return self.content
 
     def write_data(self, code_type: str = "utf-8") -> str:
         with open(self.path, "w", encoding=code_type) as file:
             file.write(self.data)
-            file.close()
         return self.data
 
     def remove(self) -> bool:
@@ -47,4 +44,24 @@ class FileModel(FileSystem):
             os.remove(self.path)
             return True
         return False
+
+    async def async_read(self) -> bytes:
+        async with aiofiles.open(self.path, "rb") as file:
+            self.content = await file.read()
+        return self.content
+
+    async def async_read_data(self, code_type: str = "utf-8") -> str:
+        async with aiofiles.open(self.path, "r", encoding=code_type) as file:
+            self.data = await file.read()
+        return self.data
+
+    async def async_write(self) -> bytes:
+        async with aiofiles.open(self.path, "wb") as file:
+            await file.write(self.content)
+        return self.content
+
+    async def async_write_data(self, code_type: str = "utf-8") -> str:
+        async with aiofiles.open(self.path, "w", encoding=code_type) as file:
+            await file.write(self.data)
+        return self.data
 
