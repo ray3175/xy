@@ -9,6 +9,9 @@ class FileSystem:
         self.__path = path
         self.__directory, self.__name = os.path.split(path)
 
+    def __bool__(self):
+        return os.path.exists(self.__path)
+
     @property
     def path(self):
         return self.__path
