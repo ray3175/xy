@@ -22,6 +22,9 @@ class DirectoryModel(FileSystem):
         if scan_directory:
             self.scan_directory(scan_iterate, directory_regex, exclude_directory_regex, file_regex, exclude_file_regex, file_model)
 
+    def __bool__(self):
+        return os.path.isdir(self.path)
+
     def _make_directory(self):
         if not os.path.exists(self.path):
             os.makedirs(self.path)
