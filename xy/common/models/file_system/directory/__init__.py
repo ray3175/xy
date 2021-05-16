@@ -7,7 +7,7 @@ from ..file import FileModel
 
 
 class DirectoryModel(FileSystem):
-    def __init__(self, directory_path: str, scan_directory: bool = False, scan_iterate: bool = False, directory_regex: Union[Pattern, str, None] = None, exclude_directory_regex: Union[Pattern, str, None] = None, file_regex: Union[Pattern, str, None] = None, exclude_file_regex: Union[Pattern, str, None] = None, file_model=FileModel):
+    def __init__(self, directory_path: str, scan_directory: bool = False, scan_iterate: bool = False, directory_regex: Union[Pattern, str, None] = None, exclude_directory_regex: Union[Pattern, str, None] = None, file_regex: Union[Pattern, str, None] = None, exclude_file_regex: Union[Pattern, str, None] = None, file_model=FileModel, *, makedirs: bool = False):
         """
         :param directory_path: 文件夹路径
         :param scan_directory: 是否扫描文件夹下的所有文件
@@ -18,7 +18,8 @@ class DirectoryModel(FileSystem):
         :param exclude_file_regex: 开启扫描时，排除文件正则表达式
         """
         super().__init__(directory_path)
-        self._make_directory()
+        if makedirs:
+            self._make_directory()
         if scan_directory:
             self.scan_directory(scan_iterate, directory_regex, exclude_directory_regex, file_regex, exclude_file_regex, file_model)
 
@@ -26,7 +27,7 @@ class DirectoryModel(FileSystem):
         return os.path.isdir(self.path)
 
     def _make_directory(self):
-        if not os.path.exists(self.path):
+        if not self:
             os.makedirs(self.path)
 
     def _is_valid_directory(self, name, directory_regex, exclude_directory_regex):
