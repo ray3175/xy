@@ -4,9 +4,11 @@ from .time_function import TimeFunction
 
 
 class TimeString(TimeFunction):
-    def __init__(self, timer=None, format="%Y-%m-%d %H:%M:%S"):
-        super(TimeString, self).__init__(timer, format)
-        self.init_time_string(timer, format)
+    def __init__(self, timer=None, format="%Y-%m-%d %H:%M:%S", *args, init_time_string=True, **kwargs):
+        super(TimeString, self).__init__(timer, format, *args, **kwargs)
+        self.__time_string = None
+        if init_time_string:
+            self.init_time_string(timer, format)
 
     def init_time_string(self, timer, format="%Y-%m-%d %H:%M:%S"):
         if isinstance(timer, (int, float)):

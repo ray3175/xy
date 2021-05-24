@@ -5,9 +5,11 @@ from .time_function import TimeFunction
 
 
 class TimeDateTime(TimeFunction):
-    def __init__(self, timer=None, format="%Y-%m-%d %H:%M:%S"):
-        super(TimeDateTime, self).__init__(timer, format)
-        self.init_datetime(timer, format)
+    def __init__(self, timer=None, format="%Y-%m-%d %H:%M:%S", *args, init_date_time=True, **kwargs):
+        super(TimeDateTime, self).__init__(timer, format, *args, **kwargs)
+        self.__datetime = None
+        if init_date_time:
+            self.init_datetime(timer, format)
 
     def init_datetime(self, timer, format="%Y-%m-%d %H:%M:%S"):
         if isinstance(timer, (int, float)):

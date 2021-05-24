@@ -8,10 +8,10 @@ from .time_string import TimeString
 
 
 class Time(TimeStamp, TimeStructTime, TimeDateTime, TimeString):
-    def __init__(self, timer=None, format="%Y-%m-%d %H:%M:%S"):
+    def __init__(self, timer=None, format="%Y-%m-%d %H:%M:%S", *args, init_time_stamp=True, init_struct_time=True, init_date_time=True, init_time_string=True, **kwargs):
         self.__timer = timer
         self.__format = format
-        super(Time, self).__init__(timer, format)
+        super(Time, self).__init__(timer, format, *args, init_time_stamp=init_time_stamp, init_struct_time=init_struct_time, init_date_time=init_date_time, init_time_string=init_time_string, **kwargs)
 
     def __str__(self):
         return self.to_string()

@@ -4,9 +4,11 @@ from .time_function import TimeFunction
 
 
 class TimeStructTime(TimeFunction):
-    def __init__(self, timer=None, format="%Y-%m-%d %H:%M:%S"):
-        super(TimeStructTime, self).__init__(timer, format)
-        self.init_struct_time(timer, format)
+    def __init__(self, timer=None, format="%Y-%m-%d %H:%M:%S", *args, init_struct_time=True, **kwargs):
+        super(TimeStructTime, self).__init__(timer, format, *args, **kwargs)
+        self.__struct_time = None
+        if init_struct_time:
+            self.init_struct_time(timer, format)
 
     def init_struct_time(self, timer, format="%Y-%m-%d %H:%M:%S"):
         if isinstance(timer, (int, float)):
